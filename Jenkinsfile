@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('deploy') {
       steps {
-        sh 'ls -a'
+        sh '''ls -a
+docker-compose --env-file ./environements/.env.prod up -d'''
       }
     }
 
