@@ -2,6 +2,8 @@ version: '3.8'
 networks: 
   private:
     external: true 
+  web:
+    external: true 
 volumes:
   mysql-data:
 
@@ -58,5 +60,6 @@ services:
       - traefik.http.routers.api.rule=Host(`dsp4-5archio19-ah-je-gh-yb.fr/api`)
     networks: 
       - private
+      - web
 
       
