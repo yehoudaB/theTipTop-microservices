@@ -1,4 +1,23 @@
-pipeline {
+node {
+  stages {
+    stage('checkout') {
+      deleteDir()
+      checkout scm
+    }
+
+    stage('ls-la') {
+      sh 'ls-la'
+    }
+
+    stage('docker ps') {
+      sh 'docker ps'
+    }
+  
+  }
+}
+
+
+/* pipeline {
   agent any
   stages {
     stage('build website') {
@@ -21,4 +40,4 @@ ls -a'''
     }
 
   }
-}
+} */
