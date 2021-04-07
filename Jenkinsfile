@@ -1,10 +1,9 @@
 pipeline {
   agent any
   stages {
-  
-    stage('ls -la') {
+    stage('deploy') {
       steps {
-        sh 'ls -la'
+        sh 'cd /theTipTop/api/ && ls -a'
       }
     }
 
