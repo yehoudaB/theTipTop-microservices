@@ -3,7 +3,7 @@ version: '3.8'
 volumes:
   mysql-data:
 
-# services:
+services:
 # #---------------------
 # # mysql database
 # #--------------------- 
