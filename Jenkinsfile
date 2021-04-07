@@ -1,43 +1,24 @@
-node {
-  stages {
-    stage('checkout') {
-      deleteDir()
-      checkout scm
-    }
-
-    stage('ls-la') {
-      sh 'ls-la'
-    }
-
-    stage('docker ps') {
-      sh 'docker ps'
-    }
-  
-  }
-}
-
-
-/* pipeline {
+pipeline {
   agent any
   stages {
-    stage('build website') {
+    stage('checkout') {
       steps {
-        sh 'ls -a'
+         deleteDir()
+         checkout scm
       }
     }
 
-    stage('run unit tests') {
+    stage('ls -la') {
       steps {
-        sh 'ls -a'
+        sh 'ls -la'
       }
     }
 
     stage('deploy website') {
       steps {
-        sh '''#/app/scripts/buildWebsite.sh
-ls -a'''
+        sh 'docker ps'
       }
     }
 
   }
-} */
+}
