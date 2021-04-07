@@ -9,13 +9,14 @@ pipeline {
 
     stage('run unit tests') {
       steps {
-        sh '/app/scripts/buildWebsite.sh'
+        sh 'ls -a'
       }
     }
 
     stage('deploy website') {
       steps {
-        sh '/app/scripts/buildWebsite.sh'
+        sh '''#/app/scripts/buildWebsite.sh
+ls -a'''
       }
     }
 
