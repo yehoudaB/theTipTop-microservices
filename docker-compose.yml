@@ -44,7 +44,7 @@ services:
     # ports: 
     #   - 80:80
     # depends_on:
-    #   - mysql
+    #   - mysql 
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
