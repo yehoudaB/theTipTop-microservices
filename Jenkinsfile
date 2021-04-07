@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('deploy') {
       steps {
-        sh 'cd /theTipTop/api/ && ls -a'
+        sh 'ls -a'
       }
     }
 
