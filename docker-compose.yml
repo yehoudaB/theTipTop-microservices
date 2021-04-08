@@ -15,7 +15,7 @@ services:
 # mysql database
 #--------------------- 
   mysql:
-    container_name: ${ENV}-mysql
+    container_name: ${ENV}_mysql
     image: mysql:latest
     ports:
       - 3306:3306 #VM:Containter
@@ -62,7 +62,7 @@ services:
     # ports: 
     #   - 80:80
     depends_on:
-      - mysql 
+      - ${ENV}_mysql
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
