@@ -1,6 +1,12 @@
 pipeline {
   agent any
   stages {
+    stage('checkout') {
+      steps {
+        deleteDir()
+        checkout scm
+      }
+    }
     stage('install compose') {
       steps {
         sh 'docker-compose --version
