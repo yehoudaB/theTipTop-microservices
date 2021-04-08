@@ -14,7 +14,7 @@ services:
 #---------------------
 # mysql database
 #--------------------- 
-  mysql:
+  ${ENV}_mysql:
     container_name: ${ENV}_mysql
     image: mysql:latest
     ports:
