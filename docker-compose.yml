@@ -1,9 +1,11 @@
 version: '3.8'
 networks: 
   private:
-    external: true 
+    external:
+      name: private
   web:
-    external: true 
+    external: 
+      name: web
 volumes:
   mysql-data:
 
