@@ -14,7 +14,7 @@ services:
 #---------------------
 # mysql database
 #--------------------- 
-  ${ENV}_mysql:
+  mysql:
     container_name: ${ENV}_mysql
     image: mysql:latest
     ports:
@@ -38,7 +38,7 @@ services:
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
       depends_on:
-        - ${ENV}_mysql
+        - mysql
       environment:
         MYSQL_USERNAME: ${MYSQL_USERNAME}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -62,7 +62,7 @@ services:
     # ports: 
     #   - 80:80
     depends_on:
-      - ${ENV}_mysql
+      - mysql
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
