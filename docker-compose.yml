@@ -43,7 +43,7 @@ services:
         PMA_HOST: mysql
       labels:
         - traefik.enable=true
-        - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr/${ENV}`)
+        - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
         
       networks: 
       - private
