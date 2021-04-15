@@ -20,13 +20,13 @@ services:
     ports:
       - 3306:3306 #VM:Containter
     environment:
-      MYSQL_USERNAME: ${MYSQL_USERNAME}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     networks: 
       - private
     volumes:
       - $PWD/sql/sql-backup/:/backup/
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      #- ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --character-set-server=utf8 --collation-server=utf8_general_ci
 
     
