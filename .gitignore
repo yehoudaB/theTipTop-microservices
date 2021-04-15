@@ -37,4 +37,3 @@ build/
 !environements/.env.example
 jenkins_home/**
 
-gogs-yehouda*
