@@ -43,8 +43,8 @@ services:
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         PMA_HOST: mysql
       labels:
-        #- traefik.enable=true
-        - "traefik.http.routers.pma.entrypoints=websecure"
+        - traefik.enable=true
+        #- "traefik.http.routers.pma.entrypoints=websecure"
         - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
         #- "traefik.http.routers.pma.tls.certresolver=lets-encr"
         
