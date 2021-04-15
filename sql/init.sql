@@ -1,7 +1,7 @@
 
-CREATE DATABASE IF NOT EXISTS `dev_the_tip_top`;
+CREATE DATABASE IF NOT EXISTS `dev_theTipTop`;
 USE `dev_theTipTop`;
 
-CREATE DATABASE IF NOT EXISTS `the_tip_top`;
+CREATE DATABASE IF NOT EXISTS `theTipTop`;
 USE `theTipTop`;
 
