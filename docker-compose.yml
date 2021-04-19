@@ -72,10 +72,10 @@ services:
       server.port: 80
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.api.entrypoints=websecure"
-      - traefik.http.routers.api.rule=Host(`dsp4-5archio19-ah-je-gh-yb.fr`) # il faut pouvoir mettre une url de dev aussi
-      - traefik.http.services.api.loadbalancer.server.port=80
-      - "traefik.http.routers.api.tls.certresolver=lets-encr"
+      - "traefik.http.routers.docker-api.entrypoints=websecure"
+      - traefik.http.routers.docker-api.rule=Host(`dsp4-5archio19-ah-je-gh-yb.fr`) # il faut pouvoir mettre une url de dev aussi
+      - traefik.http.services.docker-api.loadbalancer.server.port=80
+      - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
     networks: 
       - private
       - web
