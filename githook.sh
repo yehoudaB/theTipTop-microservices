@@ -5,6 +5,6 @@ API_KEY=11aeea835d599569ad348b6fc618e3b99b
 PROJET=theTipTop_microservice
 
 CRUMB=$(curl -u "$API_USER:$API_KEY" "$API_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
-CURL -X POST "$API_URL/job/$PROJET/build" -u "$API_USER:$API_KEY" -H "$CRUMB"
+curl -X POST "$API_URL/job/$PROJET/build" -u "$API_USER:$API_KEY" -H "$CRUMB"
 
 
