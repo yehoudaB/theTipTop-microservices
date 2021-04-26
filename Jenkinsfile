@@ -25,5 +25,53 @@ docker-compose --env-file ./environements/.env.prod up -d'''
       }
     }
 
+    stage('Deploy Artifact To Nexus') {
+      when {
+        branch 'master'
+      }
+      steps {
+        script {
+          unstash 'pom'
+          unstash 'artifact'
+          // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
+          pom = readMavenPom file: "pom.xml";
+          // Find built artifact under target folder
+          filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+          // Print some info from the artifact found
+          echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+          // Extract the path from the File found
+          artifactPath = filesByGlob[0].path;
+          // Assign to a boolean response verifying If the artifact name exists
+          artifactExists = fileExists artifactPath;
+          if (artifactExists) {
+            nexusArtifactUploader(
+            nexusVersion: 'nexus3',
+            protocol: 'http',
+            nexusUrl: 'https://nexus.dsp4-5archio19-ah-je-gh-yb.fr',
+            groupId: pom.groupId,
+            version: pom.version,
+            repository: 'theTipTop-api',
+            credentialsId: 'jenkins',
+            artifacts: [
+              // Artifact generated such as .jar, .ear and .war files.
+              [artifactId: pom.artifactId,
+              classifier: '',
+              file: artifactPath,
+              type: pom.packaging
+              ],
+              // Lets upload the pom.xml file for additional information for Transitive dependencies
+              [artifactId: pom.artifactId,
+              classifier: '',
+              file: "pom.xml",
+              type: "pom"
+              ]
+            ]
+            )
+          } else {
+            error "*** File: ${artifactPath}, could not be found";
+          }
+        }
+      }
+    }
   }
 }
