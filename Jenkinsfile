@@ -46,8 +46,8 @@ docker-compose --env-file ./environements/.env.prod up -d'''
           if (artifactExists) {
             nexusArtifactUploader(
             nexusVersion: 'nexus3',
-            protocol: 'http',
-            nexusUrl: 'https://nexus.dsp4-5archio19-ah-je-gh-yb.fr',
+            protocol: 'https',
+            nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
             groupId: pom.groupId,
             version: pom.version,
             repository: 'theTipTop-api',
