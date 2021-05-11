@@ -1,0 +1,83 @@
+version: '3.8'
+networks: 
+  private:
+    external:
+      name: private
+  web:
+    external: 
+      name: web
+volumes:
+  mysql-data:
+
+services:
+  
+#---------------------
+# mysql database
+#--------------------- 
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    ports:
+      - 3306:3306 #VM:Containter
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks: 
+      - private
+    volumes:
+      - $PWD/sql/sql-backup/:/backup/
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
+
+    
+# #---------------------
+# # phpmyadmin
+# #---------------------  
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      depends_on:
+        - mysql
+      environment:
+        MYSQL_USERNAME: ${MYSQL_USERNAME}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        PMA_HOST: mysql
+      labels:
+        - traefik.enable=true
+        - "traefik.http.routers.pma.entrypoints=websecure"
+        - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
+        - "traefik.http.routers.pma.tls.certresolver=lets-encr"
+        
+      networks: 
+      - private
+      - web
+      
+#---------------------
+# api
+#---------------------
+  api:
+    build:
+      context: .
+    image: web-api
+    container_name: docker-api
+    # ports: 
+    #   - 80:80
+    depends_on:
+      - mysql
+    environment:
+      spring.datasource.username: ${MYSQL_USERNAME}
+      spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
+      spring.profiles.active: ${ENV}
+      spring.datasource.url: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?serverTimezone=Europe/Berlin
+      server.port: 80
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.docker-api.entrypoints=websecure"
+      - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) # il faut pouvoir mettre une url de dev aussi
+      - traefik.http.services.docker-api.loadbalancer.server.port=80
+      - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
+    networks: 
+      - private
+      - web
+
+      
