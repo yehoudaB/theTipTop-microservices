@@ -22,7 +22,7 @@ import com.dsp.theTipTop.services.LotService;
 @RestController
 //@CrossOrigin(origins = "https://dsp4-5archio19-ah-je-gh-yb.fr", maxAge = 3600)
 
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping(value = {"/lots"})
 public class LotController {
 	
