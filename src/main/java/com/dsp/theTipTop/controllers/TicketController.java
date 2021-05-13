@@ -23,7 +23,7 @@ import com.dsp.theTipTop.services.TicketService;
 @RestController
 @RequestMapping(value = {"/tickets"})
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin()
 public class TicketController {
 	
 	@Autowired

@@ -21,7 +21,7 @@ import com.dsp.theTipTop.services.UserService;
 
 @RestController
 @RequestMapping(value = {"/users"})
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin()
 //@CrossOrigin(origins = "https://dsp4-5archio19-ah-je-gh-yb.fr", maxAge = 3600)
 public class UserController {
 	
