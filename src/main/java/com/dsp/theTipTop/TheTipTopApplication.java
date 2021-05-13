@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.dsp.theTipTop.services.LotService;
 
@@ -37,5 +40,16 @@ public class TheTipTopApplication implements CommandLineRunner {
 		System.out.println("------------------------------------------------------------------");
 		System.out.println("------------------------------------------------------------------");
 	}
+	
+	  @Bean
+	  public WebMvcConfigurer corsConfigurer() {
+	    return new WebMvcConfigurer() {
+	      @Override
+	      public void addCorsMappings(CorsRegistry registry) {
+	       registry.addMapping("/**").allowedOrigins("**")
+	                      .allowedMethods("PUT", "DELETE", "GET", "POST");
+	      }
+	    };
+	  }
 
 }
