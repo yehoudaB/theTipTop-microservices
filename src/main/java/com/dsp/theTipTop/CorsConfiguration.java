@@ -18,10 +18,10 @@ public class CorsConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("*")
+                registry.addMapping("/**")
                         .allowedOrigins(allowedOrigin)
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*", "http://localhost:4200/", "https://dsp4-5archio19-ah-je-gh-yb.fr/");
             }
         };
     }
