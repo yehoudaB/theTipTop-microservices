@@ -77,10 +77,9 @@ services:
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       
-      - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
-      - "traefik.http.middlewares.testheader.headers.accesscontrolalloworigin=*"
-      - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
-      - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
+      - "traefik.http.middlewares.corsheaders.headers.accesscontrolallowmethods=GET,POST,PATCH,OPTIONS, DELETE"
+      - "traefik.http.middlewares.corsheaders.headers.accesscontrolalloworiginlist=https://dsp4-5archio19-ah-je-gh-yb.fr/"
+      - "traefik.http.middlewares.corsheaders.headers.accessControlAllowHeaders=Content-Type"
     networks: 
       - private
       - web
