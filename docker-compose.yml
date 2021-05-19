@@ -48,11 +48,6 @@ services:
         - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
         - "traefik.http.routers.pma.tls.certresolver=lets-encr"
         
-        - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
-        - "traefik.http.middlewares.testheader.headers.accesscontrolalloworigin=*"
-        - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
-        - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
-        
       networks: 
       - private
       - web
@@ -81,6 +76,11 @@ services:
       - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) # il faut pouvoir mettre une url de dev aussi
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
+      
+      - "traefik.http.middlewares.testheader.headers.accesscontrolallowmethods=GET,OPTIONS,PUT,POST,DELETE"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolalloworigin=*"
+      - "traefik.http.middlewares.testheader.headers.accesscontrolmaxage=100"
+      - "traefik.http.middlewares.testheader.headers.addvaryheader=true"
     networks: 
       - private
       - web
