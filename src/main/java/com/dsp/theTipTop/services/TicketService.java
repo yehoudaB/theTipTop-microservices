@@ -1,7 +1,11 @@
 package com.dsp.theTipTop.services;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -44,6 +48,28 @@ public class TicketService {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent ticket with id : "+ id );
 		} 
 		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	}
+
+	
+
+
+	public String generateTicket(double price) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	       
+		Date now = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(now);
+		String month = Integer.toString(calendar.get(Calendar.MONTH)+1);
+		String day =  Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+		String hour =  Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+		String minute =  Integer.toString(calendar.get(Calendar.MINUTE));
+		String second =  Integer.toString(calendar.get(Calendar.SECOND));
+		String millisecond =  Integer.toString(calendar.get(Calendar.MILLISECOND));
+		String dateInNumber = month + day + hour + minute +second + millisecond;
+	    String ticket = dateInNumber + Math.round(price);
+	    
+	     
+	    return ticket;
 	}
 
 }

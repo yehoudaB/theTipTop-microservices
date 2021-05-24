@@ -50,4 +50,9 @@ public class TicketController {
 	public ResponseEntity<String> delete(@PathVariable Long id){
 		return ticketService.delete(id);
 	}
+	
+	@GetMapping(value = "/new/{price}")
+	public String read(@PathVariable double price) {
+		return ticketService.generateTicket(price);	
+	}
 }
