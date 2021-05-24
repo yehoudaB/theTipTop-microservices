@@ -70,7 +70,7 @@ public class TicketService {
 	    
 	    Ticket ticket = new Ticket(ticketNumber, null, null, false);
 	    this.save(ticket);
-	    sy
+	   
 	    return ticketNumber;
 	}
 
