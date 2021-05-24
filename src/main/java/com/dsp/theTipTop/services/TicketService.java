@@ -66,10 +66,12 @@ public class TicketService {
 		String second =  Integer.toString(calendar.get(Calendar.SECOND));
 		String millisecond =  Integer.toString(calendar.get(Calendar.MILLISECOND));
 		String dateInNumber = month + day + hour + minute +second + millisecond;
-	    String ticket = dateInNumber + Math.round(price);
+	    String ticketNumber = dateInNumber + Math.round(price);
 	    
-	     
-	    return ticket;
+	    Ticket ticket = new Ticket(ticketNumber, null, null, false);
+	    this.save(ticket);
+	    sy
+	    return ticketNumber;
 	}
 
 }

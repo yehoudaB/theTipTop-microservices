@@ -52,7 +52,7 @@ public class TicketController {
 	}
 	
 	@GetMapping(value = "/new/{price}")
-	public String read(@PathVariable double price) {
+	public String newTicket(@PathVariable double price) {
 		return ticketService.generateTicket(price);	
 	}
 }

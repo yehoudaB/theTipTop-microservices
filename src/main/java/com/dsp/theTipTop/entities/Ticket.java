@@ -1,22 +1,22 @@
 package com.dsp.theTipTop.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Ticket {
 
 	@Id 
+	@GeneratedValue
 	private Long ticketId;
 	
 	@NotNull
@@ -32,6 +32,15 @@ public class Ticket {
 
 	@NotNull
 	private boolean isHadTheGift;
+
+
+	public Ticket(@NotNull String name, Lot lot, User user, @NotNull boolean isHadTheGift) {
+		super();
+		this.name = name;
+		this.lot = lot;
+		this.user = user;
+		this.isHadTheGift = isHadTheGift;
+	}
 
 
 	
