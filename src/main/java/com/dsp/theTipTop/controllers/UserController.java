@@ -10,9 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +26,7 @@ import com.dsp.theTipTop.services.UserService;
 
 
 @RestController
-@RequestMapping(value = {"/users"})
+@RequestMapping(value = {"/use"})
 
 @CrossOrigin()
 public class UserController {
