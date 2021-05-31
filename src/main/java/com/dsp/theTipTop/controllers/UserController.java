@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,9 +59,19 @@ public class UserController {
 	}
 	
    @GetMapping("/me")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+    public Map<String, Object> userInfos(@AuthenticationPrincipal OAuth2User principal) {
         //return Collections.singletonMap("name", principal.getAttribute("name") );
         return principal.getAttributes();
         
     }
+   
+   @Autowired
+   OAuth2AuthorizedClientService authclientService;
+
+     @RequestMapping("/oauth2LoginSuccess")
+     public Map<String, Object> saveUserData(@AuthenticationPrincipal OAuth2User principal) {
+         //return Collections.singletonMap("name", principal.getAttribute("name") );
+         return principal.getAttributes();
+         
+     }
 }
