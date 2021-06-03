@@ -20,8 +20,8 @@ docker-compose --version'''
 
     stage('deploy website') {
       steps {
-        sh '''
-docker-compose --env-file ./environements/.env.prod up -d '''
+      sh '''
+docker-compose --env-file ./environements/.env.prod up -d'''
       }
     }
 
