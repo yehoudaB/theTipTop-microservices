@@ -3,7 +3,7 @@ COPY ./ /
 WORKDIR /
 
 RUN ["mvn","-v"]
-RUN ["mvn","clean","install", "-Dmaven.test.skip=true"]
+CMD ["mvn","clean","install", "-Dmaven.test.skip=true"]
 
 
 FROM tomcat:jdk11-corretto
