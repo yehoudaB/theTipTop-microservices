@@ -1,7 +1,7 @@
 FROM maven AS maven_builder
 COPY ./ /
 WORKDIR /
-ENTRYPOINT ["sh","/run.sh"]
+
 RUN ["mvn","-v"]
 RUN ["mvn","clean","install", "-Dmaven.test.skip=true"]
 
