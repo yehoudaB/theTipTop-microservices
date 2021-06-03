@@ -21,7 +21,7 @@ docker-compose --version'''
     stage('deploy website') {
       steps {
       sh '''
-      ls -a
+      docker logs maven-builder
 docker-compose --env-file ./environements/.env.prod up -d'''
       }
     }
