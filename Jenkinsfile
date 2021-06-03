@@ -21,7 +21,7 @@ docker-compose --version'''
     stage('deploy website') {
       steps {
       sh '''
-docker-compose --env-file ./environements/.env.prod up -d'''
+docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
       }
     }
 
