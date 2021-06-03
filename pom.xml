@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.dsp</groupId>
 	<artifactId>theTipTop</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>theTipTop</name>
 	<description>microservice for theTipTop</description>
 	<packaging>war</packaging>
