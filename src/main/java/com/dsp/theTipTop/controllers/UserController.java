@@ -65,9 +65,7 @@ public class UserController {
         
     }
    
-   @Autowired
-   OAuth2AuthorizedClientService authclientService;
-
+   
      @RequestMapping("/oauth2LoginSuccess")
      public Map<String, Object> saveUserData(@AuthenticationPrincipal OAuth2User principal) {
          //return Collections.singletonMap("name", principal.getAttribute("name") );

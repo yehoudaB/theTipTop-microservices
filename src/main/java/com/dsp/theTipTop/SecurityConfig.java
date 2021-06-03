@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
 		 .antMatcher("/**").authorizeRequests()
-         .antMatchers("/").permitAll()
+         .antMatchers(new String[]{"/", "/not-restricted"}).permitAll()
          .anyRequest().authenticated()
          .and().oauth2Login()
          .defaultSuccessUrl("/users/oauth2LoginSuccess")
