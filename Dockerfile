@@ -1,6 +1,7 @@
-#!/bin/sh
+
 FROM maven AS maven_builder
 COPY ./ /
+COPY docker-entrypoint.sh /usr/local/bin/
 WORKDIR /
 
 RUN ["mvn","-v"]
