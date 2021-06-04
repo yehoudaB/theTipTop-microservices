@@ -1,7 +1,7 @@
+#!/bin/sh
 FROM maven AS maven_builder
 COPY ./ /
 WORKDIR /
-RUN chmod +x entrypoint.sh
 
 RUN ["mvn","-v"]
 RUN ["mvn","clean","install", "-Dmaven.test.skip=true"]
