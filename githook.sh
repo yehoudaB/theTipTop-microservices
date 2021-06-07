@@ -1,6 +1,6 @@
 #!/bin/bash
 API_URL=https://jenkins.dsp4-5archio19-ah-je-gh-yb.fr
-API_USER=gogs
+API_USER=jenkinsadmin
 API_KEY=11e7428c4fe60ae7e33c2f8bb327d07e42
 PROJET=theTipTop_microservice
 
