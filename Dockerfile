@@ -1,5 +1,5 @@
 
-FROM maven AS maven_builder
+FROM maven:3.6.0-jdk-11-slim AS maven_builder
 WORKDIR /app
 COPY ./ ./
 
