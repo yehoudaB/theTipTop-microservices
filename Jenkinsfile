@@ -50,8 +50,8 @@ docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
             nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
             groupId: pom.groupId,
             version: pom.version,
-            repository: 'theTipTop-api',
-            credentialsId: 'jenkins',
+            repository: 'theTipTop_microservice',
+            credentialsId: 'admin',
             artifacts: [
               // Artifact generated such as .jar, .ear and .war files.
               [artifactId: pom.artifactId,
