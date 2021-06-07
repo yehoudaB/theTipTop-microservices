@@ -1,8 +1,8 @@
 
 FROM maven AS maven_builder
-RUN rm -rvf /usr/local/Tomcat/webapps/*
-COPY ./ /
-WORKDIR /
+WORKDIR /app
+COPY ./ ./
+
 
 RUN ["mvn","-v"]
 RUN ["mvn","clean","install", "-Dmaven.test.skip=true"]
