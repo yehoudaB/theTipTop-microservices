@@ -51,7 +51,7 @@ docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
             groupId: pom.groupId,
             version: pom.version,
             repository: 'theTipTop_microservice',
-            credentialsId: 'admin',
+            credentialsId: 'nexus3',
             artifacts: [
               // Artifact generated such as .jar, .ear and .war files.
               [artifactId: pom.artifactId,
