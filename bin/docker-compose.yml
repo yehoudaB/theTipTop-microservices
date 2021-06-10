@@ -64,6 +64,7 @@ services:
     #   - 80:80
     depends_on:
       - mysql
+      - keycloak
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
