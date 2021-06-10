@@ -74,5 +74,8 @@ docker-compose --version'''
         }
       }
     }
+    stage('delete workspace') {
+    	deleteDir()
+    }
   }
 }
