@@ -21,7 +21,7 @@ docker-compose --version'''
     stage('docker-compose up') {
       steps {
       sh '''
-			docker-compose --env-file ./environements/.env.prod up -d '''
+			docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
       }
     }
 

@@ -58,7 +58,7 @@ services:
 # keycloak
 #-------------------
 
-  keycloak:
+  keycloak :
     image: jboss/keycloak:13.0.1
     container_name: keycloak
     environment:
