@@ -62,7 +62,7 @@ services:
     container_name: keycloak
     environment:
       DB_VENDOR: MYSQL
-      DB_ADDR: mysql
+      DB_ADDR: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?serverTimezone=Europe/Berlin
       DB_DATABASE: keycloak
       DB_USER:  ${MYSQL_USERNAME}
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -89,8 +89,6 @@ services:
       context: .
     image: web-api
     container_name: docker-api
-    # ports: 
-    #   - 80:80
     depends_on:
       - mysql
       - keycloak
