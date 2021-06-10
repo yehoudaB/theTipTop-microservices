@@ -62,7 +62,7 @@ services:
     container_name: keycloak
     environment:
       DB_VENDOR: MYSQL
-      DB_ADDR: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?serverTimezone=Europe/Berlin
+      DB_ADDR: jdbc:mysql://mysql:3306
       DB_DATABASE: keycloak
       DB_USER:  ${MYSQL_USERNAME}
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
