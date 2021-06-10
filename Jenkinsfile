@@ -74,11 +74,6 @@ docker-compose --version'''
         }
       }
     }
-    stage('delete workspace') {
-    	 steps {
-      	 cleanWs()
-        deleteDir()
-      }
-    }
+   
   }
 }
