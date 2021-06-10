@@ -69,7 +69,7 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       KEYCLOAK_USER: ${KEYCLOAK_USERNAME}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-    depends_on:dsdqsdqsd
+    depends_on:
       - mysql
     labels:
       - traefik.enable=true
