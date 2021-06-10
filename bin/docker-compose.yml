@@ -79,5 +79,32 @@ services:
     networks: 
       - private
       - web
+      
+#-------------------
+# keycloak
+#-------------------
+
+  keycloak:
+    image: jboss/keycloak:13.0.1
+    container_name: keycloak
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloak
+      DB_USER:  ${MYSQL_USERNAME}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USERNAME}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    depends_on:
+      - mysql
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.keycloak.entrypoints=websecure"
+      - traefik.http.routers.keycloak.rule=Host(`key.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - traefik.http.services.keycloak.loadbalancer.server.port=80
+      - "traefik.http.routers.keycloak.tls.certresolver=lets-encr"
+    networks: 
+      - private
+      - web
 
       
