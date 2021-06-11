@@ -62,7 +62,8 @@ services:
     container_name: keycloak
     environment:
       DB_VENDOR: MYSQL
-      DB_ADDR: jdbc:mysql://mysql:3306
+      DB_ADDR: mysql
+      DB_PORT: 3306
       DB_DATABASE: keycloak
       DB_USER:  ${MYSQL_USERNAME}
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -74,7 +75,7 @@ services:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
       - traefik.http.routers.keycloak.rule=Host(`key.dsp4-5archio19-ah-je-gh-yb.fr`)
-      - traefik.http.services.keycloak.loadbalancer.server.port=80
+      - traefik.http.services.keycloak.loadbalancer.server.port=8443
       - "traefik.http.routers.keycloak.tls.certresolver=lets-encr"
     networks: 
       - private
