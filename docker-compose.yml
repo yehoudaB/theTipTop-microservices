@@ -52,36 +52,26 @@ services:
       - private
       - web
       
-#-------------------
-# keycloak-db
-#-------------------      
-  keycloak-db:
-    image: postgres
-    container_name: keycloak-db   
-    volumes:
-      - ./data/keycloak-db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-      
+     
 #-------------------
 # keycloak
 #-------------------
+
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: jboss/keycloak:13.0.1
     container_name: keycloak
     environment:
-      DB_VENDOR: POSTGRES
-      DB_ADDR: keycloak-db
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_PORT: 3306
       DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_SCHEMA: public
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: pwd 
+      DB_USER:  ${MYSQL_USERNAME}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USERNAME}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KEYCLOAK_IMPORT: /tmp/import-realm.json
     depends_on:
-      - keycloak-db
+      - mysql
     labels:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
@@ -92,9 +82,11 @@ services:
       - private
       - web
     volumes:
-      - $PWD/data/keycloak/:/data
+      - $PWD/data/keycloak/data:/data
+      - $PWD/data/keycloak/tmp:/tmp
     command:
-      - "-Dkeycloak.profile.feature.upload_scripts=enabled"
+    - "-Dkeycloak.profile.feature.upload_scripts=enabled"
+      
       
 #---------------------
 # api
@@ -116,7 +108,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.routers.docker-api.entrypoints=websecure"
-      - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) # il faut pouvoir mettre une url de dev aussi
+      - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) 
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       
