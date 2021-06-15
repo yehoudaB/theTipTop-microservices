@@ -56,19 +56,21 @@ services:
 # keycloak-db
 #-------------------      
   keycloak-db:
-      image: postgres
-      volumes:
-        - ./data/keycloak-db:/var/lib/postgresql/data
-      environment:
-        POSTGRES_DB: keycloak
-        POSTGRES_USER: keycloak
-        POSTGRES_PASSWORD: password
-        
+    image: postgres
+    container_name: keycloak-db   
+    volumes:
+      - ./data/keycloak-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+      
 #-------------------
 # keycloak
 #-------------------
   keycloak:
     image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-db 
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
