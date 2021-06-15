@@ -52,25 +52,34 @@ services:
       - private
       - web
       
-     
+#-------------------
+# keycloak-db
+#-------------------      
+  keycloak-db:
+      image: postgres
+      volumes:
+        - ./data/keycloak-db:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: keycloak
+        POSTGRES_USER: keycloak
+        POSTGRES_PASSWORD: password
+        
 #-------------------
 # keycloak
 #-------------------
-
   keycloak:
-    image: jboss/keycloak:13.0.1
-    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
     environment:
-      DB_VENDOR: MYSQL
-      DB_ADDR: mysql
-      DB_PORT: 3306
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
       DB_DATABASE: keycloak
-      DB_USER:  ${MYSQL_USERNAME}
-      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      KEYCLOAK_USER: ${KEYCLOAK_USERNAME}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd 
     depends_on:
-      - mysql
+      - keycloak-db
     labels:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
@@ -83,8 +92,7 @@ services:
     volumes:
       - $PWD/data/keycloak/:/data
     command:
-    - "-Dkeycloak.profile.feature.upload_scripts=enabled"
-      
+      - "-Dkeycloak.profile.feature.upload_scripts=enabled"
       
 #---------------------
 # api
