@@ -82,6 +82,8 @@ services:
       - web
     volumes:
       - $PWD/data/keycloak/:/data
+    command:
+    - "-Dkeycloak.profile.feature.upload_scripts=enabled"
       
       
 #---------------------
