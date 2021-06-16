@@ -54,29 +54,37 @@ services:
       
      
 #-------------------
+# keycloak-db
+#-------------------
+  keycloak-db:
+    image: postgres
+    container_name: keycloak-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+
+#-------------------
 # keycloak
 #-------------------
-
+  
   keycloak:
-    image: jboss/keycloak:13.0.1
-    container_name: keycloak
-    expose:
-      - '8181'
-    ports:
-      - '8181:8080'
+    image: quay.io/keycloak/keycloak:latest
     environment:
-      KEYCLOAK_LOGLEVEL: ERROR
-      DB_VENDOR: MYSQL
-      DB_ADDR: mysql
-      DB_PORT: 3306
+      DB_VENDOR: POSTGRES
+      DB_ADDR: keycloak-db
       DB_DATABASE: keycloak
-      DB_USER:  ${MYSQL_USERNAME}
-      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      KEYCLOAK_USER: ${KEYCLOAK_USERNAME}
-      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
-      JDBC_PARAMS: "connectTimeout=30000"
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
     depends_on:
-      - mysql
+      - keycloak-db
     labels:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
@@ -86,12 +94,7 @@ services:
     networks: 
       - private
       - web
-    volumes:
-      - $PWD/data/keycloak/data:/data
-      - $PWD/data/keycloak/tmp:/tmp
-    command:
-    - "-Dkeycloak.profile.feature.upload_scripts=enabled"
-    - "-Djboss.as.management.blocking.timeout=3600" # added by moi
+
       
 #---------------------
 # api
