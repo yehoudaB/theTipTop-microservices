@@ -61,6 +61,7 @@ services:
     image: jboss/keycloak:13.0.1
     container_name: keycloak
     environment:
+      KEYCLOAK_LOGLEVEL: DEBUG
       DB_VENDOR: MYSQL
       DB_ADDR: mysql
       DB_PORT: 3306
