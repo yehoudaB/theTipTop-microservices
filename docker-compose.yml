@@ -79,6 +79,7 @@ services:
       DB_PASSWORD: pwd
       KEYCLOAK_USER: keycloak
       KEYCLOAK_PASSWORD: pwd
+      PROXY_ADDRESS_FORWARDING: "true"
     ports:
       - 8081:8080
     depends_on:
