@@ -87,7 +87,6 @@ services:
     command:
     - "-Dkeycloak.profile.feature.upload_scripts=enabled"
     - "-Djboss.as.management.blocking.timeout=3600" # added by moi
-       
       
 #---------------------
 # api
