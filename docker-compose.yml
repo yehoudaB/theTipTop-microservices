@@ -8,6 +8,8 @@ networks:
       name: web
 volumes:
   mysql-data:
+  postgres-data:
+      driver: local
 
 services:
   
@@ -72,6 +74,7 @@ services:
   
   keycloak:
     image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: keycloak-db
@@ -106,7 +109,6 @@ services:
     container_name: docker-api
     depends_on:
       - mysql
-      - keycloak
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
