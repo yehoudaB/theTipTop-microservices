@@ -62,7 +62,7 @@ services:
     image: postgres
     container_name: keycloak-db
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
