@@ -36,52 +36,53 @@ services:
 # # phpmyadmin
 # #---------------------  
   phpmyadmin:
-      image: phpmyadmin/phpmyadmin
-      container_name: phpmyadmin
-      depends_on:
-        - mysql
-      environment:
-        MYSQL_USERNAME: ${MYSQL_USERNAME}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        PMA_HOST: mysql
-      labels:
-        - traefik.enable=true
-        - "traefik.http.routers.pma.entrypoints=websecure"
-        - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
-        - "traefik.http.routers.pma.tls.certresolver=lets-encr"
-        
-      networks: 
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PMA_HOST: mysql
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.pma.entrypoints=websecure"
+      - traefik.http.routers.pma.rule=Host(`pma.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - "traefik.http.routers.pma.tls.certresolver=lets-encr"
+    networks: 
       - private
       - web
       
      
-  postgres:
+  keycloak-db:
     image: postgres
+    container_name: keycloak-db
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: pwd
+    networks: 
+      - private
+      - web
+   
+      
   keycloak:
     image: jboss/keycloak:13.0.1
+    container_name: keycloak
     environment:
       DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
+      DB_ADDR: keycloak-db
       DB_DATABASE: keycloak
       DB_USER: keycloak
       DB_PASSWORD: pwd
       KEYCLOAK_USER: keycloak
       KEYCLOAK_PASSWORD: pwd
-     
+    ports:
+      - 8081:8080
     depends_on:
-      - postgres 
-    labels:
-      - traefik.enable=true
-      - "traefik.http.routers.keycloak.entrypoints=websecure"
-      - traefik.http.routers.keycloak.rule=Host(`key.dsp4-5archio19-ah-je-gh-yb.fr`)
-      #- traefik.http.services.keycloak.loadbalancer.server.port=8443
-      - "traefik.http.routers.keycloak.tls.certresolver=lets-encr"
+      - keycloak-db 
     networks: 
       - private
       - web
