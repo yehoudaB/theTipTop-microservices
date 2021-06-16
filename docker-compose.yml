@@ -86,7 +86,13 @@ services:
     networks: 
       - private
       - web
-
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.keycloak.entrypoints=websecure"
+      - traefik.http.routers.keycloak.rule=Host(`key.dsp4-5archio19-ah-je-gh-yb.fr`) 
+      - "traefik.http.routers.keycloak.tls.certresolver=lets-encr"
+      - traefik.http.routers.keycloak.middlewares=corsheaders
+    
       
 #---------------------
 # api
@@ -110,7 +116,6 @@ services:
       - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) 
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
-      
       - traefik.http.routers.docker-api.middlewares=corsheaders
     networks: 
       - private
