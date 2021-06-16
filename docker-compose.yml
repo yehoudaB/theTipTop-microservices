@@ -88,6 +88,8 @@ services:
       #JDBC_PARAMS: "ssl=true"
     depends_on:
       - keycloak-db
+    ports:
+      - 8081:8080
     labels:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
