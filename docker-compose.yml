@@ -8,9 +8,9 @@ networks:
       name: web
 volumes:
   mysql-data:
-  postgres-data:
-      driver: local
-
+  postgres_data:
+    driver: local
+ 
 services:
   
 #---------------------
@@ -55,46 +55,32 @@ services:
       - web
       
      
-#-------------------
-# keycloak-db
-#-------------------
-  keycloak-db:
+  postgres:
     image: postgres
-    container_name: keycloak-db
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
-
-#-------------------
-# keycloak
-#-------------------
-  
+      POSTGRES_PASSWORD: pwd
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak
+    image: jboss/keycloak:13.0.1
     environment:
       DB_VENDOR: POSTGRES
-      DB_ADDR: keycloak-db
+      DB_ADDR: postgres
       DB_DATABASE: keycloak
       DB_USER: keycloak
-      DB_SCHEMA: public
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: Pa55w0rd
-      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "ssl=true"
+      DB_PASSWORD: pwd
+      KEYCLOAK_USER: keycloak
+      KEYCLOAK_PASSWORD: pwd
+     
     depends_on:
-      - keycloak-db
-    ports:
-      - 8081:8080
+      - postgres 
     labels:
       - traefik.enable=true
       - "traefik.http.routers.keycloak.entrypoints=websecure"
       - traefik.http.routers.keycloak.rule=Host(`key.dsp4-5archio19-ah-je-gh-yb.fr`)
-      - traefik.http.services.keycloak.loadbalancer.server.port=8443
+      #- traefik.http.services.keycloak.loadbalancer.server.port=8443
       - "traefik.http.routers.keycloak.tls.certresolver=lets-encr"
     networks: 
       - private
