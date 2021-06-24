@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.keycloak.adapters.springsecurity.client.KeycloakRestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,9 +31,7 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
-	
-	@Autowired
-	private KeycloakRestTemplate keycloakRestTemplate;
+
 	
 	@GetMapping()
 	public List<User> readAll() {
