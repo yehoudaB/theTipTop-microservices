@@ -117,6 +117,7 @@ services:
       - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`) 
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
+      #next line is for cors origin errors
       - traefik.http.routers.docker-api.middlewares=corsheaders
     networks: 
       - private
