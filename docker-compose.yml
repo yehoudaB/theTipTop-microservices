@@ -121,4 +121,4 @@ services:
       - traefik.http.routers.docker-api.middlewares=corsheaders
     networks: 
       - private
-      - web      
+      - web
