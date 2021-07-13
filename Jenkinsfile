@@ -21,8 +21,12 @@ docker-compose --version'''
     }
     
     stage('SonarQube analysis') {
-    	 agent  any {
-       image 'maven:3-alpine'
+    	 agent   {
+    	 	 docker {
+          // Set both label and image
+          label 'docker'
+          image 'maven:3-alpine'
+        }
       	}
 	  	steps {
 	    	// Steps run in maven:3-alpine docker container on docker slave
