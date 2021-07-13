@@ -18,6 +18,14 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version'''
       }
     }
+    
+    stage('SonarQube analysis') {
+   		steps{
+   			sh 'mvn sonar:sonar \
+  			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
+  			-Dsonar.login=f3ff7b49060985dcd3d592299f9b76a6638e18ae'
+   		}
+  	}
 
     stage('docker-compose up') {
       steps {
