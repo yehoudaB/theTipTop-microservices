@@ -20,15 +20,18 @@ docker-compose --version'''
     }
     
     stage('SonarQube analysis') {
-    agent {
-        docker {
-          image 'maven:3-alpine'
-        }
-      }
-      steps {
-        
-        sh 'mvn --version'
-      }
+    	agent {
+        	docker {
+          	// Set both label and image
+          	label 'docker'
+          	image 'maven:3-alpine'
+        	}
+      	}
+	  	steps {
+	    	// Steps run in maven:3-alpine docker container on docker slave
+	    	sh 'mvn --version'
+	  	}
+    
    		steps{
    			sh 'mvn sonar:sonar \
   			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
