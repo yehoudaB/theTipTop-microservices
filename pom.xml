@@ -225,13 +225,9 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <!-- Optional URL to server. Default value is http://localhost:9000 -->
-                <sonar.host.url>
-                  https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr
-                </sonar.host.url>
-                
-            </properties>
+        <properties>
+  			<sonar.projectKey>theTipTop_microservice</sonar.projectKey>
+		</properties>
         </profile>
     </profiles>
 

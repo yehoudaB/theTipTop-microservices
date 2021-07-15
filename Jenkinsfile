@@ -20,19 +20,10 @@ pipeline {
       }
     }
 
-    stage('SonarQube analysis') {
-    	agent {
-	        docker {
-	          image 'maven:3-alpine'
-	        }
-		}
-		steps {
-			echo 'Initiating SonarQube test'
- 			sh 'mvn sonar:sonar \
- 		  		-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
- 		  		-Dsonar.login=49a1a9b451cb5bba50c3cbf4e8979ec2c0eaec3d'
-			echo 'SonarQube test Complete'
-     	}
+    stage('SonarQube Analysis') {
+	    def mvn = tool 'maven3';
+	    withSonarQubeEnv() {
+	      sh "${mvn}/bin/mvn sonar:sonar"
     }
 
 
