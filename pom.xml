@@ -227,6 +227,7 @@
             </activation>
         <properties>
   			<sonar.projectKey>theTipTop_microservice</sonar.projectKey>
+  			<sonar.host.url>https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr</sonar.host.url>
 		</properties>
         </profile>
     </profiles>
