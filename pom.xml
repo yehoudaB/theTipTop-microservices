@@ -99,7 +99,13 @@
 		    <artifactId>keycloak-spring-boot-starter</artifactId>
 		</dependency>
 		
-	
+	       <!-- https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
+		<dependency>
+		    <groupId>org.sonarsource.scanner.maven</groupId>
+		    <artifactId>sonar-maven-plugin</artifactId>
+		    <version>3.9.0.2155</version>
+		</dependency>
+
 	
 
 	</dependencies>
@@ -112,7 +118,7 @@
 	            <version>14.0.0</version>
 	            <type>pom</type>
 	            <scope>import</scope>
-	        </dependency>
+	        </dependency>       
 	    </dependencies>
 	</dependencyManagement>
 	<build>
@@ -184,9 +190,11 @@
             <properties>
                 <!-- Optional URL to server. Default value is http://localhost:9000 -->
                 <sonar.host.url>
-                  https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr/
+                  https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr
                 </sonar.host.url>
+                
             </properties>
         </profile>
     </profiles>
+
 </project>

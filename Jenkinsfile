@@ -12,28 +12,20 @@ pipeline {
     stage('install compose') {
       steps {
         sh '''
-#les 3 prochaine lignes doivent etre conditionnel ou alors les faire lors de la constrution de l\'image jenkins
-apt-get install sudo -y
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose --version'''
+			#les 3 prochaine lignes doivent etre conditionnel ou alors les faire lors de la constrution de l\'image jenkins
+			apt-get install sudo -y
+			sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+			sudo chmod +x /usr/local/bin/docker-compose
+			docker-compose --version'''
       }
     }
     
     stage('SonarQube analysis') {
-    	agent {
-	        docker {
-	          image 'maven:3-alpine'
-	        }
-      	}
-	  	steps {
-	    	// Steps run in maven:3-alpine docker container on docker slave
-	    	sh 'mvn --version'
-	  
-   			sh 'mvn sonar:sonar \
-  			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
-  			-Dsonar.login=f3ff7b49060985dcd3d592299f9b76a6638e18ae'
-   		}
+    	echo 'Initiating SonarQube test'
+		sh 'mvn sonar:sonar \
+		  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
+		  -Dsonar.login=49a1a9b451cb5bba50c3cbf4e8979ec2c0eaec3d'
+		echo 'SonarQube test Complete'
   	}
 
     stage('docker-compose up') {
