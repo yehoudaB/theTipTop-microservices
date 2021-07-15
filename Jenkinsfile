@@ -23,9 +23,13 @@ pipeline {
     stage('build && SonarQube analysis') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-          sh ''' withMaven(maven:\'Maven3\') {
-                        sh \'mvn clean package sonar:sonar -U -Dsonar.branch.name=master\'
-                    }'''
+         	
+             
+                   
+             def mvn = tool 'maven3';
+			  withSonarQubeEnv() {
+			      sh "${mvn}/bin/mvn sonar:sonar -U -Dsonar.branch.name=master"
+			    }
           }
 
         }
