@@ -22,7 +22,15 @@ pipeline {
 
     stage('build && SonarQube analysis') {
       steps {
-      		echo 'ici faut mettre sonar'
+        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
+         	
+             sh 'mvn sonar:sonar \
+			  -Dsonar.projectKey=theTipTop_microservice \
+			  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
+			  -Dsonar.login=tokenb'
+                   
+         
+          }
 
         }
       }
@@ -35,9 +43,9 @@ pipeline {
       }
 
       stage('Deploy Artifact To Nexus') {
-        when { 
+        when {
           branch 'master'
-        } 
+        }
         steps {
           script {
             pom = readMavenPom file: "pom.xml";
