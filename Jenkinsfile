@@ -20,18 +20,15 @@ pipeline {
       }
     }
 
-   	stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'sonarqube'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
+   stage("SonarQube analysis") {
+        steps {
+            script {
+                def scannerHome = tool 'SonarQube Scanner';
+                withSonarQubeEnv('SonarQube Server') {
+                    sh 'mvn clean package sonar:sonar'
+                }
+            }
         }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
 }
 
     stage('docker-compose up') {
