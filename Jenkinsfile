@@ -24,9 +24,10 @@ pipeline {
         steps {
             script {
                 def scannerHome = tool 'SonarQubeScanner';
-                withSonarQubeEnv('SonarQube Server') {
-                    sh 'mvn clean package sonar:sonar'
-                }
+                withEnv(["PATH=/usr/bin: ..."]) {
+				withSonarQubeEnv('My SonarQube Server') {
+				    sh "${scannerHome}/bin/sonar-scanner"
+				}
             }
         }
 }
