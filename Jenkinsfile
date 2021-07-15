@@ -20,11 +20,18 @@ pipeline {
       }
     }
 
-    stage('SonarQube Analysis') {
-	    def mvn = tool 'maven3';
-	    withSonarQubeEnv() {
-	     	sh "${mvn}/bin/mvn sonar:sonar"
-	    }
+    stage('SonarQube analysis') {
+
+		steps {
+			echo 'Initiating SonarQube test'
+ 			 def mvn = tool 'maven3';
+    		 withSonarQubeEnv() {
+			 	sh "${mvn}/bin/mvn sonar:sonar"
+			 }
+			echo 'SonarQube test Complete'
+     	}
+    
+
     }
 
 
