@@ -20,16 +20,16 @@ pipeline {
       }
     }
 
-   stage("SonarQube analysis") {
-        steps {
-        
-        	withSonarQubeEnv('My SonarQube Server', envOnly: true) {
-  // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
-  println ${env.SONAR_HOST_URL} 
-}
-           
+   stage('build && SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
+            }
         }
-  	}
 
 
     stage('docker-compose up') {
