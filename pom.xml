@@ -106,6 +106,33 @@
 		    <version>3.9.0.2155</version>
 		</dependency>
 
+
+		<dependency>
+     		<groupId>org.sonarsource.sonarqube</groupId>
+      		<artifactId>sonar-plugin-api</artifactId>
+     		<version>9.0.0.45539</version>
+      		<scope>provided</scope>
+    	</dependency>
+    <dependency>
+      <!-- packaged with the plugin -->
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+
+
+    <!-- unit tests -->
+    <dependency>
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-testing-harness</artifactId>
+       <version>9.0.0.45539</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
 	
 
 	</dependencies>
@@ -154,6 +181,17 @@
 	        		</annotationProcessorPaths>
     			</configuration>
 			</plugin>	
+			
+			<plugin>
+	        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+	        <artifactId>sonar-packaging-maven-plugin</artifactId>
+	        <version>1.18.0.372</version>
+	        <extensions>true</extensions>
+	        <configuration>
+	          <pluginKey>example</pluginKey>
+	          <pluginClass>org.sonarsource.plugins.example.ExamplePlugin</pluginClass>
+	        </configuration>
+      		</plugin>
 		</plugins>
 	</build>
 	
