@@ -35,7 +35,7 @@ pipeline {
       }
 
       stage('Deploy Artifact To Nexus') {
-        when {
+        when { 
           branch 'master'
         }
         steps {
