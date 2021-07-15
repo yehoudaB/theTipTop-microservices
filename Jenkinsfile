@@ -24,7 +24,7 @@ pipeline {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
          	
-             withMaven(maven: 'maven-3'){
+             withMaven(maven: 'maven3'){
              	sh 'mvn --version'
              }
                    
