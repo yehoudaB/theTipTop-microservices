@@ -24,12 +24,12 @@ pipeline {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
          	
-             sh 'mvn sonar:sonar \
-			  -Dsonar.projectKey=theTipTop_microservice \
-			  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
-			  -Dsonar.login=tokenb'
+             withMaven(maven: 'maven-3'){
+             	mvn --version
+             }
                    
-         
+           
+			 
           }
 
         }
