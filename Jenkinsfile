@@ -20,13 +20,16 @@ pipeline {
       }
     }
 
-	  stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn sonar:sonar"
-    }
-  }   
-
+   stage("SonarQube analysis") {
+        steps {
+            script {
+                def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation';;
+                withSonarQubeEnv('SonarQube Server') {
+                    sh 'mvn clean package sonar:sonar'
+                }
+            }
+        }
+}
 
     stage('docker-compose up') {
       steps {
