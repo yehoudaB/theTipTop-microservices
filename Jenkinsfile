@@ -23,7 +23,7 @@ pipeline {
    stage("SonarQube analysis") {
         steps {
             script {
-                def scannerHome = tool name: 'sonarqube', type: 'hudson.plugins.sonar.SonarRunnerInstallation';;
+                def scannerHome = tool : 'SonarQubeScanner'
                 withSonarQubeEnv('SonarQube Server') {
                     sh 'mvn clean package sonar:sonar'
                 }
