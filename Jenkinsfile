@@ -22,15 +22,7 @@ pipeline {
 
     stage('build && SonarQube analysis') {
       steps {
-        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-         	
-             
-                   
-             def mvn = tool 'maven3';
-			  withSonarQubeEnv() {
-			      sh "${mvn}/bin/mvn sonar:sonar -U -Dsonar.branch.name=master"
-			    }
-          }
+      		echo 'ici faut mettre sonar'
 
         }
       }
