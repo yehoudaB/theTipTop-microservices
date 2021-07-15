@@ -28,9 +28,7 @@ docker-compose --version'''
 
       }
       steps {
-        sh 'mvn --version'
-        sh 'mvn sonar:sonar   			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr   			-Dsonar.login=f3ff7b49060985dcd3d592299f9b76a6638e18ae'
-        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: '78cff5ef5eff5487f422e04f6506010ae057d507')
+        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'sonarqube')
       }
     }
 
