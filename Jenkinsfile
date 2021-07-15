@@ -20,17 +20,18 @@ pipeline {
       }
     }
 
-   stage('build && SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven3') {
-                        sh 'mvn clean package sonar:sonar -U -Dsonar.branch.name=master'
-                    }
-                }
-            }
+    stage('build && SonarQube analysis') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          withMaven(maven: 'Maven3') {
+            sh 'mvn clean package sonar:sonar -U -Dsonar.branch.name=master'
+          }
+
         }
 
+        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB')
+      }
+    }
 
     stage('docker-compose up') {
       steps {
