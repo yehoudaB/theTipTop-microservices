@@ -20,14 +20,19 @@ pipeline {
       }
     }
 
-    
-stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
-    withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn sonar:sonar"
+   	stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'sonarqube'
     }
-  }
-
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+}
 
     stage('docker-compose up') {
       steps {
