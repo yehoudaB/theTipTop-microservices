@@ -37,7 +37,7 @@ pipeline {
       stage('Deploy Artifact To Nexus') {
         when { 
           branch 'master'
-        }
+        } 
         steps {
           script {
             pom = readMavenPom file: "pom.xml";
