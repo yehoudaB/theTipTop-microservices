@@ -29,7 +29,7 @@ docker-compose --version'''
       }
       steps {
         sh ''' echo \'Initiating SonarQube test\'
-sh \'mvn sonar:sonar -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
+sh \'mvn sonar:sonar -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr\' 
 echo \'SonarQube test Complete\''''
       }
     }
