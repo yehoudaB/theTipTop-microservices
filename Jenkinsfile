@@ -22,15 +22,15 @@ pipeline {
 
    stage("SonarQube analysis") {
         steps {
-            script {
-                def scannerHome = tool 'SonarQubeScanner';
-                withEnv(["PATH=/usr/bin: ..."]) {
-				withSonarQubeEnv('My SonarQube Server') {
-				    sh "${scannerHome}/bin/sonar-scanner"
-				}
-            }
-        }
+        
+        	withSonarQubeEnv('My SonarQube Server', envOnly: true) {
+  // This expands the evironment variables SONAR_CONFIG_NAME, SONAR_HOST_URL, SONAR_AUTH_TOKEN that can be used by any script.
+  println ${env.SONAR_HOST_URL} 
 }
+           
+        }
+  	}
+
 
     stage('docker-compose up') {
       steps {
