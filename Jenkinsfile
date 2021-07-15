@@ -1,14 +1,14 @@
 pipeline {
   agent any
-  
   stages {
-      stage('checkout') {
+    stage('checkout') {
       steps {
-      	 cleanWs()
+        cleanWs()
         deleteDir()
         checkout scm
       }
     }
+
     stage('install compose') {
       steps {
         sh '''
@@ -19,26 +19,24 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version'''
       }
     }
-    
+
     stage('SonarQube analysis') {
-    	agent {
-	        docker {
-	          image 'maven:3-alpine'
-	        }
-      	}
-	  	steps {
-	    	// Steps run in maven:3-alpine docker container on docker slave
-	    	sh 'mvn --version'
-	  
-   			sh 'mvn sonar:sonar \
-  			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr \
-  			-Dsonar.login=f3ff7b49060985dcd3d592299f9b76a6638e18ae'
-   		}
-  	}
+      agent {
+        docker {
+          image 'maven:3-alpine'
+        }
+
+      }
+      steps {
+        sh 'mvn --version'
+        sh 'mvn sonar:sonar   			-Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr   			-Dsonar.login=f3ff7b49060985dcd3d592299f9b76a6638e18ae'
+        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: '78cff5ef5eff5487f422e04f6506010ae057d507')
+      }
+    }
 
     stage('docker-compose up') {
       steps {
-      sh '''
+        sh '''
 			docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
       }
     }
@@ -49,9 +47,6 @@ docker-compose --version'''
       }
       steps {
         script {
-          //unstash 'pom'
-          //unstash 'artifact'
-          // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
           pom = readMavenPom file: "pom.xml";
           // Find built artifact under target folder
           filesByGlob = './'
@@ -63,34 +58,35 @@ docker-compose --version'''
           artifactExists = fileExists artifactPath;
           if (artifactExists) {
             nexusArtifactUploader(
-            nexusVersion: 'nexus3',
-            protocol: 'https',
-            nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
-            groupId: pom.groupId,
-            version: pom.version,
-            repository: 'theTipTop_microservice',
-            credentialsId: 'nexus3',
-            artifacts: [
-              // Artifact generated such as .jar, .ear and .war files.
-              [artifactId: pom.artifactId,
-              classifier: '',
-              file: artifactPath,
-              type: pom.packaging
+              nexusVersion: 'nexus3',
+              protocol: 'https',
+              nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
+              groupId: pom.groupId,
+              version: pom.version,
+              repository: 'theTipTop_microservice',
+              credentialsId: 'nexus3',
+              artifacts: [
+                // Artifact generated such as .jar, .ear and .war files.
+                [artifactId: pom.artifactId,
+                classifier: '',
+                file: artifactPath,
+                type: pom.packaging
               ],
               // Lets upload the pom.xml file for additional information for Transitive dependencies
               [artifactId: pom.artifactId,
               classifier: '',
               file: "pom.xml",
               type: "pom"
-              ]
             ]
-            )
-          } else {
-            error "*** File: ${artifactPath}, could not be found";
-          }
-        }
+          ]
+        )
+      } else {
+        error "*** File: ${artifactPath}, could not be found";
       }
     }
-   
+
   }
+}
+
+}
 }
