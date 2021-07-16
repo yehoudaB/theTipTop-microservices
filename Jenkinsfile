@@ -26,12 +26,10 @@ pipeline {
          	tools {
                    jdk "openjdk-11"
                 }
-                steps {
-                    sh 'java -version'
-                }
-         	
+               
              withMaven(maven: 'maven3'){
              	sh 'mvn --version'
+             	sh 'java -version'
              	
              sh'''mvn sonar:sonar 
 			  -Dsonar.projectKey=theTipTop_microservice 
