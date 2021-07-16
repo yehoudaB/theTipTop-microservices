@@ -23,6 +23,12 @@ pipeline {
     stage('build && SonarQube analysis') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
+         	tools {
+                   jdk "openjdk-11"
+                }
+                steps {
+                    sh 'java -version'
+                }
          	
              withMaven(maven: 'maven3'){
              	sh 'mvn --version'
