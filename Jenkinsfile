@@ -38,7 +38,11 @@ pipeline {
 	            	sh'''mvn sonar:sonar 
 				  -Dsonar.projectKey=theTipTop_microservice 
 				  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
-				  -Dsonar.login=tokenb'''
+				  -Dsonar.login=tokenb
+				  -Dsonar.sources=. 
+				  -Dsonar.java.binaries=**/* -Dsonar.language=java
+				  
+				  '''
              	}	 
           	}
   		}
