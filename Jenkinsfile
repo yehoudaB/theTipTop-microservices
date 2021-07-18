@@ -39,10 +39,7 @@ pipeline {
          	
             	withMaven(maven: 'maven3'){
              		
-             		sh ''' 
-             		mvn clean compile -Dmaven.test.skip=true
-             		ls -a 
-             		'''
+             	
 	             	
 	             	
 	            	sh'''mvn sonar:sonar 
