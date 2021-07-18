@@ -39,15 +39,15 @@ pipeline {
          	
             	withMaven(maven: 'maven3'){
              		
-             		sh '''
-             		
-             		ls -a'''
+             		sh ''' 
+             		mvn clean compile -Dmaven.test.skip=true'''
 	             	
+	             	ls -a 
 	            	sh'''mvn sonar:sonar 
 				  -Dsonar.projectKey=theTipTop_microservice 
 				  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
 				  -Dsonar.login=tokenb
-				  -Dsonar.sources=./
+				  -Dsonar.sources=./target
 				  -Dsonar.language=java
 				  
 				  '''
