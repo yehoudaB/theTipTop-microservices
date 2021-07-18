@@ -21,9 +21,7 @@ pipeline {
     }
 
     stage('build && SonarQube analysis') {
-		tools {
-	       jdk "openjdk-11"
-	    }
+
        
       	steps {
       
@@ -38,8 +36,7 @@ pipeline {
 			  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
 			  -Dsonar.login=tokenb'''
              }
-                   //ca devrait fonctionner (sonar mais bug java imcompatible version)
-           
+             
 			 
           }
 
