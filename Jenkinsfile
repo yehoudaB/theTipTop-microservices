@@ -42,7 +42,7 @@ pipeline {
 				  -Dsonar.sources=. 
 				  -Dsonar.java.binaries=./**/**/**
 				  -Dsonar.language=java
-				  -Dsonar.exclusions=**/*.java
+				  -Dsonar.exclusions=**/**/**.java
 				  
 				  '''
              	}	 
