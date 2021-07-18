@@ -20,14 +20,8 @@ pipeline {
       }
     }
 
-      stage('docker-compose up') {
-        steps {
-          sh '''
-			docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
-        }
-      }
-      
-          stage('build && SonarQube analysis') {   
+
+  stage('build && SonarQube analysis') {   
     	steps {
         	withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
          	
@@ -39,16 +33,24 @@ pipeline {
 				  -Dsonar.projectKey=theTipTop_microservice 
 				  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
 				  -Dsonar.login=tokenb
-				  -Dsonar.sources=. 
-				  -Dsonar.java.binaries=./**/**/**
+				  -Dsonar.sources=.
 				  -Dsonar.language=java
-				  -Dsonar.exclusions=**/**/**.java
+				  -Dsonar.exclusions=**/**.java
 				  
 				  '''
              	}	 
           	}
   		}
       }
+
+      stage('docker-compose up') {
+        steps {
+          sh '''
+			docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
+        }
+      }
+      
+        
 
       stage('Deploy Artifact To Nexus') {
         when {
