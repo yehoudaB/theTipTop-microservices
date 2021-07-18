@@ -15,7 +15,8 @@ pipeline {
          	
             	withMaven(maven: 'maven3'){
              		
-             		sh './bin/ ls -a'
+             		sh 'cd bin/'
+             		sh 'ls -a'
 	             	
 	            	sh'''mvn sonar:sonar 
 				  -Dsonar.projectKey=theTipTop_microservice 
