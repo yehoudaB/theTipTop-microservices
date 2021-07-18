@@ -42,8 +42,6 @@ pipeline {
              		sh ''' 
              		mvn clean compile -Dmaven.test.skip=true
              		ls -a 
-             		cd bin/
-             		ls -a
              		'''
 	             	
 	             	
