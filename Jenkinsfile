@@ -39,7 +39,7 @@ pipeline {
          	
             	withMaven(maven: 'maven3'){
              		
-             		sh '''cd bin/
+             		sh '''
              		
              		ls -a'''
 	             	
