@@ -20,34 +20,28 @@ pipeline {
       }
     }
 
-    stage('build && SonarQube analysis') {
-
-       
-      	steps {
-      
-        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-         	
-             withMaven(maven: 'maven3'){
-             	sh 'mvn --version'
-             	sh 'java -version'
-             	
-             sh'''mvn sonar:sonar 
-			  -Dsonar.projectKey=theTipTop_microservice 
-			  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
-			  -Dsonar.login=tokenb'''
-             }
-             
-			 
-          }
-
-        }
-      }
-
       stage('docker-compose up') {
         steps {
           sh '''
 			docker-compose --env-file ./environements/.env.prod up -d --no-deps --build'''
         }
+      }
+      
+          stage('build && SonarQube analysis') {   
+    	steps {
+        	withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
+         	
+            	withMaven(maven: 'maven3'){
+             		sh 'mvn --version'
+             		sh 'java -version'
+	             	
+	            	sh'''mvn sonar:sonar 
+				  -Dsonar.projectKey=theTipTop_microservice 
+				  -Dsonar.host.url=https://sonarqube.dsp4-5archio19-ah-je-gh-yb.fr 
+				  -Dsonar.login=tokenb'''
+             	}	 
+          	}
+  		}
       }
 
       stage('Deploy Artifact To Nexus') {
