@@ -24,7 +24,7 @@ pipeline {
 
   
         
-      stage('docker-compose up') {
+      stage('docker-compose up(delpoy) ') {
         steps {
         withMaven(maven: 'maven3'){
              		
