@@ -42,7 +42,7 @@ pipeline {
       stage('test JUnit') {
         steps {
         	withMaven(maven: 'maven3'){
-             	sh 'mvn  test -Pprod'
+             	sh 'mvn  test -Pprod -Dmaven.test.skip=true -Pprod'
         	}
         }   
         post { 
