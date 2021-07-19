@@ -29,7 +29,7 @@ pipeline {
         withMaven(maven: 'maven3'){
              		
              		sh ''' 
-             		mvn clean  test install  -Dmaven.test.skip=true -Pprod
+             		mvn clean  install  -Dmaven.test.skip=true -Pprod
              		ls -a 
              		'''
              		
