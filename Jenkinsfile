@@ -36,7 +36,6 @@ pipeline {
           sh '''
 			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
 			
-			sh 'mvn  test -Pprod'
 			}
         }
           post { 
