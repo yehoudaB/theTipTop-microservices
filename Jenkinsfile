@@ -34,25 +34,14 @@ pipeline {
              		'''
              		
           sh '''
-			docker-compose --env-file $PWD/environments/.env.prod up -d --no-deps --build'''
-			} 
-        }
-      }
-    /*  
-      stage('test JUnit') {
-        steps {
-        	withMaven(maven: 'maven3'){
-             	sh 'mvn test '
-        	}
-        }   
-        post { 
-        	always{
-        		junit 'target/surefire-reports/**/*.xml'
-        	}
+			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
+			}
         }
       }
       
-      */
+      //junit here
+      
+      
       
       stage('build && SonarQube analysis') {   
     	steps {
