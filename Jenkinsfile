@@ -29,7 +29,7 @@ pipeline {
         withMaven(maven: 'maven3'){
              		
              		sh ''' 
-             		mvn clean install -Dmaven.test.skip=true
+             		mvn clean install -Dmaven.test.skip=true -Pprod
              		ls -a 
              		'''
              		
@@ -42,7 +42,7 @@ pipeline {
       stage('test JUnit') {
         steps {
         	withMaven(maven: 'maven3'){
-             	sh 'mvn compile test'
+             	sh 'mvn compile test -Pprod'
         	}
         }   
         post { 
