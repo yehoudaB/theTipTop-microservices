@@ -34,7 +34,7 @@ pipeline {
              		'''
              		
           sh '''
-			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
+			docker-compose --env-file $PWD/environments/.env.prod up -d --no-deps --build'''
 			}
         }
       }
