@@ -1,4 +1,3 @@
-
 CREATE DATABASE IF NOT EXISTS `dev_theTipTop`;
 USE `dev_theTipTop`;
 
