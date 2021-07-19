@@ -39,7 +39,18 @@ pipeline {
         }
       }
       
-      //junit here
+      stage('test JUnit') {
+        steps {
+        	withMaven(maven: 'maven3'){
+             	sh 'mvn compile test -Pprod'
+        	}
+        }   
+        post { 
+        	always{
+        		junit 'target/surefire-reports/**/*.xml'
+        	}
+        }
+      }
       
       
       
