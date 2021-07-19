@@ -33,8 +33,9 @@ pipeline {
              		ls -a 
              		'''
              		
-          sh '''
-			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
+          		sh '''
+					docker-compose --env-file ./environments/.env.prod up -d --no-deps --build
+				'''
 			}
         }
       }
