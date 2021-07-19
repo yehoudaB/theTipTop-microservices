@@ -28,7 +28,7 @@ services:
       - private
     volumes:
       - $PWD/data/sql/sql-backup/:/backup/
-      - sql/init.sql:/docker-entrypoint-initdb/init.sql
+      - init.sql:/docker-entrypoint-initdb/init.sql
     command: --character-set-server=utf8 --collation-server=utf8_general_ci
 
     
