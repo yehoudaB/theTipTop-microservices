@@ -39,21 +39,26 @@ pipeline {
         }
       }
       
+      stage('test JUnit') {
+        steps {
+        withMaven(maven: 'maven3'){
+             		
+             		sh 'mvn test'
+             		
+      
+        }
+      }
+      
       
       
       stage('build && SonarQube analysis') {   
     	steps {
-        	withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-         	
-            	 withMaven(maven: 'maven3'){
-	             	
-             	
+        	withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {    	
+            	 withMaven(maven: 'maven3'){     	
 	            	sh'''mvn sonar:sonar 
-				 
-				  
+			
 				  '''
-				}
-             
+				}           
           	}
   		}
       }
