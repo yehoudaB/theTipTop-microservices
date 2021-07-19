@@ -32,7 +32,7 @@ pipeline {
              		mvn clean  install  -Dmaven.test.skip=true -Pprod
              		ls -a 
              		'''
-             		
+             	sh 'mvn  test -Pprod'	
           sh '''
 			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
 			
