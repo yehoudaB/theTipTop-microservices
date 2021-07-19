@@ -29,13 +29,20 @@ pipeline {
         withMaven(maven: 'maven3'){
              		
              		sh ''' 
-             		mvn clean install -Dmaven.test.skip=true -Pprod
+             		mvn clean  test install  -Dmaven.test.skip=true -Pprod
              		ls -a 
              		'''
              		
           sh '''
 			docker-compose --env-file ./environments/.env.prod up -d --no-deps --build'''
+			
+			sh 'mvn  test -Pprod'
 			}
+        }
+          post { 
+        	always{
+        		junit 'target/surefire-reports/**/*.xml'
+        	}
         }
       }
       
@@ -54,17 +61,7 @@ pipeline {
       
       
       
-      stage('build && SonarQube analysis') {   
-    	steps {
-        	withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {    	
-            	 withMaven(maven: 'maven3'){     	
-	            	sh'''mvn sonar:sonar 
-			
-				  '''
-				}           
-          	}
-  		}
-      }
+    
 
       
     
