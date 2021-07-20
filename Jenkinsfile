@@ -57,15 +57,6 @@ pipeline {
           }
       }
     }
-
-    stage('test') {
-      steps {
-        sh 'ls -a'
-        sh ''' cd target/'
-        ls -a'''
-        sh 'cd ..'
-      }
-    }
     stage('Deploy Artifact To Nexus') {
       when {
         branch 'master'
@@ -118,6 +109,13 @@ pipeline {
             error "*** File: ${artifactPath}, could not be found";
           }
         }
+      }
+    }
+
+    stage('download from nexus') {
+      steps {
+        sh 'curl X GET -u=admin:admin https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.1-SNAPSHOT/theTipTop-0.0.1-20210720.143851-1.war'
+          
       }
     }
     
