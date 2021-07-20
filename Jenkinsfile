@@ -58,6 +58,14 @@ pipeline {
       }
     }
 
+    stage('test') {
+      steps {
+        sh 'ls -a'
+        sh 'cd target/'
+        sh 'ls -a'
+        sh 'cd ..'
+      }
+    }
     stage('Deploy Artifact To Nexus') {
       when {
         branch 'master'
@@ -100,7 +108,7 @@ pipeline {
                 [
                   artifactId: pom.artifactId,
                   classifier: '',
-                  file: 'theTipTop.war',
+                  file: './target/theTipTop.war',
                   type: 'war'
                 ]
               ]
