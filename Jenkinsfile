@@ -24,7 +24,7 @@ pipeline {
         steps {
         withMaven(maven: 'maven3') {
           sh '''
-                mvn clean  install  -Dmaven.test.skip=true -Pprod
+                mvn clean  install package -Dmaven.test.skip=true -Pprod
                 ls -a
             '''
 
@@ -106,10 +106,6 @@ pipeline {
         }
       }
     }
-    stage('download artifact from nexus and build') {
-      steps {
-        sh 'curl -X GET -u root https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/ -O'
-      }
-    }
+    
   }
 }
