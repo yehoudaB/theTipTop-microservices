@@ -100,7 +100,7 @@ pipeline {
                 [
                   artifactId: pom.artifactId,
                   classifier: '',
-                  file: 'target/${pom.artifactId}-${pom.version}.war',
+                  file: 'theTipTop.war',
                   type: 'war'
                 ]
               ]
