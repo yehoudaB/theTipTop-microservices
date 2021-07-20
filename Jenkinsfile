@@ -61,8 +61,8 @@ pipeline {
     stage('test') {
       steps {
         sh 'ls -a'
-        sh 'cd target/'
-        sh 'ls -a'
+        sh ''' cd target/'
+        ls -a'''
         sh 'cd ..'
       }
     }
