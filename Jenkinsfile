@@ -20,11 +20,11 @@ pipeline {
       }
     }
 
-    stage('docker-compose up(delpoy) ') {
+    stage('maven install and docker-compose up (deploy into tomcat)') {
         steps {
         withMaven(maven: 'maven3') {
           sh '''
-                mvn clean  install package -Dmaven.test.skip=true -Pprod
+                mvn clean  install  -Dmaven.test.skip=true -Pprod
                 ls -a
             '''
 
@@ -96,6 +96,12 @@ pipeline {
                   classifier: '',
                   file: 'pom.xml',
                   type: 'pom'
+                ],
+                [
+                  artifactId: pom.artifactId,
+                  classifier: '',
+                  file: 'target/${pom.artifactId}-${pom.version}.war',
+                  type: 'war'
                 ]
               ]
             )
