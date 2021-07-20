@@ -68,7 +68,7 @@ pipeline {
           // Find built artifact under target folder
           filesByGlob = './'
           // Print some info from the artifact found
-          echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+         // echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           // Extract the path from the File found
           artifactPath = './';
           // Assign to a boolean response verifying If the artifact name exists
