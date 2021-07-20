@@ -24,7 +24,7 @@ pipeline {
         steps {
         withMaven(maven: 'maven3') {
           sh '''
-                mvn clean build install package   -Dmaven.test.skip=true -Pprod
+                mvn clean  install package   -Dmaven.test.skip=true -Pprod
                 ls -a
             '''
 
