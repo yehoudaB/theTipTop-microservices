@@ -67,7 +67,7 @@ pipeline {
           // Find built artifact under target folder
           filesByGlob = './'
           // Print some info from the artifact found
-         // echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+          // echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           // Extract the path from the File found
           artifactPath = './';
           // Assign to a boolean response verifying If the artifact name exists
@@ -106,7 +106,7 @@ pipeline {
             )
           }
           else {
-            error "*** File: ${artifactPath}, could not be found";
+            error "*** File: ${artifactPath}, could not be found"
           }
         }
       }
@@ -114,10 +114,12 @@ pipeline {
 
     stage('download from nexus') {
       steps {
-        echo pom.groupId
+        echo ${pom.groupId}
         
-        echo pom.artifactId
-        sh 'curl X GET --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.1-SNAPSHOT/theTipTop-0.0.1-20210720.143851-1.war'
+        echo ${pom.artifactId}
+        sh '''
+          curl -H "Accept: application/zip"  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.1-SNAPSHOT/theTipTop-0.0.1-20210720.143851-1.war -o theTipTop.war
+        '''
         sh 'ls -a '  
       }
     }
