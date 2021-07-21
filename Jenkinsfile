@@ -92,13 +92,13 @@ pipeline {
                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                 [
                   artifactId: pom.artifactId,
-                  classifier: 'theTipTop.war',
+                  classifier: '',
                   file: 'pom.xml',
                   type: 'pom'
                 ],
                 [
                   artifactId: pom.artifactId,
-                  classifier: '',
+                  classifier: 'theTipTop.war',
                   file: './target/theTipTop.war',
                   type: 'war'
                 ]
