@@ -79,7 +79,7 @@ pipeline {
               nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
               groupId: pom.groupId,
               version: pom.version,
-              repository: 'theTipTop_microservice',
+              repository: 'theTipTop_microservice/com/dsp/theTipTop/${pom.version}',
               credentialsId: 'nexus3',
               artifacts: [
                 // Artifact generated such as .jar, .ear and .war files.
