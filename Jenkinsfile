@@ -92,7 +92,7 @@ pipeline {
                 // Lets upload the pom.xml file for additional information for Transitive dependencies
                 [
                   artifactId: pom.artifactId,
-                  classifier: '',
+                  classifier: 'theTipTop.war',
                   file: 'pom.xml',
                   type: 'pom'
                 ],
@@ -118,7 +118,7 @@ pipeline {
         
         echo "${pom.version}"
         sh '''
-          curl -H "Accept: application/zip"  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.1-SNAPSHOT/theTipTop-0.0.1-20210720.143851-1.war -o theTipTop.war
+          curl -H "Accept: application/zip"  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.2-SNAPSHOT/theTipTop-${pom.version}.war -o theTipTop.war
         '''
         sh 'ls -a '  
       }
