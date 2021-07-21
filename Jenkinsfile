@@ -79,7 +79,7 @@ pipeline {
               nexusUrl: 'nexus.dsp4-5archio19-ah-je-gh-yb.fr',
               groupId: pom.groupId,
               version: pom.version,
-              repository: 'theTipTop_microservice/com/dsp/theTipTop/${pom.version}',
+              repository: 'theTipTop_microservice/',
               credentialsId: 'nexus3',
               artifacts: [
                 // Artifact generated such as .jar, .ear and .war files.
@@ -98,7 +98,7 @@ pipeline {
                 ],
                 [
                   artifactId: pom.artifactId,
-                  classifier: 'theTipTop.war',
+                  classifier: 'theTipTop.war', // pas sur, a voir
                   file: './target/theTipTop.war',
                   type: 'war'
                 ]
@@ -118,7 +118,7 @@ pipeline {
         
         echo "${pom.version}"
         sh '''
-          curl -H "Accept: application/zip"  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.2-SNAPSHOT/theTipTop-${pom.version}.war -o theTipTop.war
+          curl -H "Accept: application/zip"  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.2-SNAPSHOT/theTipTop-"${pom.version}".war -o theTipTop.war
         '''
         sh 'ls -a '  
       }
