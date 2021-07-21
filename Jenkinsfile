@@ -2,11 +2,11 @@ pipeline {
   agent any
   stages {
     stage('checkout') {
-        steps {
-          cleanWs()
-          deleteDir()
-          checkout scm
-        }
+      steps {
+        cleanWs()
+        deleteDir()
+        checkout scm
+      }
     }
 
     stage('install compose') {
@@ -21,42 +21,58 @@ pipeline {
     }
 
     stage('maven install and docker-compose up (deploy into tomcat)') {
-        steps {
+      steps {
         withMaven(maven: 'maven3') {
           sh '''
                 mvn clean  install package   -Dmaven.test.skip=true -Pprod
                 ls -a
             '''
-
           sh '''
               docker-compose --env-file ./environments/.env.prod up -d --no-deps --build
           '''
         }
-        }
+
+      }
     }
 
     stage('test JUnit') {
-      steps {
-          withMaven(maven: 'maven3') {
-        sh 'mvn  test -Pprod'
+      parallel {
+        stage('test JUnit') {
+          post {
+            always {
+              junit 'target/surefire-reports/**/*.xml'
+            }
+
           }
-      }
-      post {
-          always {
-        junit 'target/surefire-reports/**/*.xml'
+          steps {
+            withMaven(maven: 'maven3') {
+              sh 'mvn  test -Pprod'
+            }
+
           }
+        }
+
+        stage('') {
+          steps {
+            sh 'echo \'banane\''
+          }
+        }
+
       }
     }
 
     stage('build && SonarQube analysis') {
       steps {
-          withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-            withMaven(maven: 'maven3') {
-              sh 'mvn sonar:sonar'
-            }
+        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
+          withMaven(maven: 'maven3') {
+            sh 'mvn sonar:sonar'
           }
+
+        }
+
       }
     }
+
     stage('Deploy Artifact To Nexus') {
       when {
         branch 'master'
@@ -109,18 +125,18 @@ pipeline {
             error "*** File: ${artifactPath}, could not be found"
           }
         }
+
       }
     }
 
     stage('download from nexus') {
       steps {
         echo "${pom.groupId}"
-        
         echo "${pom.version}"
         sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/0.0.2-SNAPSHOT/theTipTop-${pom.version}.war -o theTipTop.war"
-        sh 'ls -a '  
+        sh 'ls -a '
       }
     }
-    
+
   }
 }
