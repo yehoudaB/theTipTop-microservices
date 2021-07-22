@@ -102,7 +102,7 @@ pipeline {
                 ],
                 [
                   artifactId: pom.artifactId,
-                  classifier: 'theTipTop.war', // pas sur, a voir
+                  classifier: '',
                   file: './target/theTipTop.war',
                   type: 'war'
                 ]
