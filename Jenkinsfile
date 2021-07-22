@@ -31,45 +31,33 @@ pipeline {
               docker-compose --env-file ./environments/.env.prod up -d --no-deps --build
           '''
         }
-
       }
     }
 
-    stage('test JUnit') {
+    stage('tests') {
       parallel {
         stage('test JUnit') {
-          post {
-            always {
-              junit 'target/surefire-reports/**/*.xml'
-            }
-
-          }
           steps {
             withMaven(maven: 'maven3') {
               sh 'mvn  test -Pprod'
             }
-
+          }
+          post {
+            always {
+              junit 'target/surefire-reports/**/*.xml'
+            }
           }
         }
 
-        stage('') {
+        stage('build && SonarQube analysis') {
           steps {
-            sh 'echo \'banane\''
+            withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
+              withMaven(maven: 'maven3') {
+                sh 'mvn sonar:sonar'
+              }
+            }
           }
         }
-
-      }
-    }
-
-    stage('build && SonarQube analysis') {
-      steps {
-        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'tokenB') {
-          withMaven(maven: 'maven3') {
-            sh 'mvn sonar:sonar'
-          }
-
-        }
-
       }
     }
 
@@ -79,15 +67,15 @@ pipeline {
       }
       steps {
         script {
-          pom = readMavenPom file: 'pom.xml';
+          pom = readMavenPom file: 'pom.xml'
           // Find built artifact under target folder
           filesByGlob = './'
           // Print some info from the artifact found
           // echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
           // Extract the path from the File found
-          artifactPath = './';
+          artifactPath = './'
           // Assign to a boolean response verifying If the artifact name exists
-          artifactExists = fileExists artifactPath;
+          artifactExists = fileExists artifactPath
           if (artifactExists) {
             nexusArtifactUploader(
               nexusVersion: 'nexus3',
@@ -125,7 +113,6 @@ pipeline {
             error "*** File: ${artifactPath}, could not be found"
           }
         }
-
       }
     }
 
@@ -137,6 +124,5 @@ pipeline {
         sh 'ls -a '
       }
     }
-
   }
 }
