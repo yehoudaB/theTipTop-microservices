@@ -126,7 +126,7 @@ pipeline {
     }
     stage('deploy production') {
       steps {
-           sh'docker-compose --env-file ./environments/.env.stage up api -d --no-deps --build'
+           sh'docker-compose --env-file ./environments/.env.prod up api -d --no-deps --build'
       }
     }
   }
