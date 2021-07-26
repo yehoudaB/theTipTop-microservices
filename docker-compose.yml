@@ -103,6 +103,8 @@ services:
       context: .
       args:
         - PATH_OF_WAR=${PATH_OF_WAR}
+    image: ${ENV}-api
+    container_name: ${ENV}-api
     depends_on:
       - mysql
     environment:
@@ -115,7 +117,7 @@ services:
       - traefik.enable=true
       - "traefik.http.routers.docker-api.entrypoints=websecure"
       - traefik.http.routers.docker-api.rule=Host(`${SUB_DOMAIN}.dsp4-5archio19-ah-je-gh-yb.fr`) 
-      - traefik.http.services.docker-api.loadbalancer.server.port=80
+      - traefik.http.services.docker-api.loadbalancer.server.port=${PORT}
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile
       - traefik.http.routers.docker-api.middlewares=corsheaders
