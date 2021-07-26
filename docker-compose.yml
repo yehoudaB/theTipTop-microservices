@@ -101,6 +101,8 @@ services:
   api:
     build:
       context: .
+      args:
+        - PATH_OF_WAR=${PATH_OF_WAR}
     image: web-api
     container_name: ${ENV}-api
     depends_on:
