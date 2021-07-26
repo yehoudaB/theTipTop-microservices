@@ -28,7 +28,7 @@ pipeline {
                 ls -a
             '''
           sh '''
-              docker-compose --env-file ./environments/.env.prod up -d --no-deps --build
+              docker-compose --env-file ./environments/.env.stage up -d --no-deps --build
           '''
         }
       }
@@ -122,6 +122,11 @@ pipeline {
         echo "${pom.version}"
         sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
         sh 'ls -a '
+      }
+    }
+    stage('deploy production') {
+      steps {
+           sh'docker-compose --env-file ./environments/.env.stage up api -d --no-deps --build'
       }
     }
   }
