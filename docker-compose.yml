@@ -102,7 +102,7 @@ services:
     build:
       context: .
     image: web-api
-    container_name: S{ENV}-api
+    container_name: ${ENV}-api
     depends_on:
       - mysql
     environment:
