@@ -103,7 +103,6 @@ services:
       context: .
       args:
         - PATH_OF_WAR=${PATH_OF_WAR}
-    image: ${ENV}-api
     depends_on:
       - mysql
     environment:
