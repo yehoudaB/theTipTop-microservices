@@ -1,6 +1,7 @@
 FROM tomcat:jdk11-corretto
 
-ENV PATH_OF_WAR = ${PATH_OF_WAR}
+ARG PATH_OF_WAR = ${PATH_OF_WAR}
+ARG PATH_OF_WAR = $PATH_OF_WAR
 RUN echo  PATH_OF_WAR
 RUN echo  ${PATH_OF_WAR}
 
