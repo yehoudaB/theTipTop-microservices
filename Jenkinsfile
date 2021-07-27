@@ -124,10 +124,6 @@ pipeline {
         sh 'ls -a '
       }
     }
-    stage('deploy production') {
-      steps {
-           sh'docker-compose --env-file ./environments/.env.prod up -d  --no-deps --build'
-      }
-    }
+   
   }
 }
