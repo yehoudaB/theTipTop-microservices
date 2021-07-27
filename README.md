@@ -1,6 +1,6 @@
 # TheTipTop-microservices
 
-Look at http://domain/api/swagger-ui/ or http://domain/api/v2/api-docs endpoints to find the api endpoints
+Look at http://domain/swagger-ui/ or http://domain/api/api-docs endpoints to find the api endpoints
 
 ## Run localy
 for running the microservice localy execute :

@@ -28,7 +28,7 @@ pipeline {
                 ls -a
             '''
           sh '''
-              docker-compose --env-file ./environments/.env.stage up -d --no-deps --build
+              docker-compose --env-file ./environments/.env.stage up -d --no-deps --build --force-recreate
           '''
         }
       }
@@ -124,6 +124,6 @@ pipeline {
         sh 'ls -a '
       }
     }
-   
+    
   }
 }
