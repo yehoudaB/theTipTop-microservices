@@ -139,7 +139,7 @@ pipeline {
           
           if (params.DEPLOY_PROD ) {
             echo 'deploying to production'
-            build '../prod_theTipTop_microservice'
+            build job: '../prod_theTipTop_microservice'
           } else {
             echo 'not deploying to production'
           }
