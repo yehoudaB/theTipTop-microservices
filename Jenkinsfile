@@ -127,8 +127,8 @@ pipeline {
   }
   post {
           always{
-            predefinedProp(POM_VERSION, ${pom.version})
-            echo POM_VERSION
+            predefinedProp(POM_VERSION, "${pom.version}")
+            echo "${pom.version}"
             build '../prod_theTipTop_microservice'
             
           }   
