@@ -131,7 +131,7 @@ pipeline {
       steps {
         script {
           parameters {
-            booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
+            booleanParam(name: 'DEPLOY_PROD', description: 'Do you want deploy this build in production ?')
           }
           if (params.DEPLOY_PROD ) {
             echo 'deploying to production'
