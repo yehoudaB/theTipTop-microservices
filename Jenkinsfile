@@ -66,9 +66,9 @@ pipeline {
         branch 'master'
       }
       steps {
-        sh 'cd target/'
-        sh 'ls -a'
-        sh 'cd ../'
+        sh '''cd target/
+        ls -a'''
+      
         script {
           pom = readMavenPom file: 'pom.xml'
           // Find built artifact under target folder
