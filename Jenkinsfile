@@ -126,12 +126,10 @@ pipeline {
     }
   }
   post {
-          def parameters = Jenkins.instance.getAllItems(Job)
-                        .find {job -> job.fullName == jobName }
-                        .getBuildByNumber(buildId.toInteger())
-                        .getAction(hudson.model.ParametersAction)
-
-          println parameters.getParameter('SOME_PARAMETER').value
+          always{
+            build '../prod_theTipTop_microservice'
+            
+          }   
       }
 
 }
