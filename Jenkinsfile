@@ -130,7 +130,7 @@ pipeline {
       
       steps {
         script {
-          env.DEPLOY_PROD = input message: 'User input required',
+          param.DEPLOY_PROD = input message: 'User input required',
           properties([
             parameters([
               booleanParam(
