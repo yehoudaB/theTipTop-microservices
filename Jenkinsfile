@@ -8,9 +8,10 @@ pipeline {
       defaultValue: false,
     )
   }
-if (!DEPLOY_IN_PROD){
+
 
   stages {
+    if (!DEPLOY_IN_PROD){
     stage('checkout') {
       steps {
         cleanWs()
