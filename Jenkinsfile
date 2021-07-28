@@ -125,32 +125,10 @@ pipeline {
       }
     }
 
-   stage('deploy to production ?') {
- 
-      
-      steps {
-        script {
-          param.DEPLOY_PROD = input message: 'User input required',
-          properties([
-            parameters([
-              booleanParam(
-                name: 'DEPLOY_PROD',
-                value: 'true',
-                description: 'Do you want deploy this build in production ?'
-              )
-            ])
-          ])
-          
-          
-          if (params.DEPLOY_PROD ) {
-            echo 'deploying to production'
-            build job: '../prod_theTipTop_microservice'
-          } else {
-            echo 'not deploying to production'
-          }
-        }
-         
-      }
+    post {
+      always{
+        build '../prod_theTipTop_microservice'
+      }   
     }
   }
 }
