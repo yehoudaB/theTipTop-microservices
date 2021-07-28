@@ -143,13 +143,6 @@ pipeline {
           } else {
             echo 'not deploying to production'
           }
-          build(
-            job: 'prod_theTipTop_microservice',
-             parameters([
-              booleanParam(name: 'DEPLOY_PROD',  description: 'Do you want deploy this build in production ?'),
-              stringParam(name: 'test1', value:'test1234')
-            ])
-          )
         }
          
       }
