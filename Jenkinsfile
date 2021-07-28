@@ -147,13 +147,9 @@ pipeline {
             job: 'prod_theTipTop_microservice',
              parameters([
               booleanParam(name: 'DEPLOY_PROD',  description: 'Do you want deploy this build in production ?'),
-              string(name: 'test1', value:'test1234')
+              stringParam(name: 'test1', value:'test1234')
             ])
-        
-              quietPeriod: 0,
-              wait: true,
-              propagate: true
-            )
+          )
         }
          
       }
