@@ -124,17 +124,11 @@ pipeline {
         sh 'ls -a '
       }
     }
-    stage('deploy production') {
-      steps {
-           sh'docker-compose --env-file ./environments/.env.prod up -d  --no-deps --build'
-      }
-    }
   }
   post {
           always{
-            build '../theTipTop_microservice/master'
-          }
-          
+            build '../prod_theTipTop_microservice'
+          }   
       }
 
 }
