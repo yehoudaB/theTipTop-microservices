@@ -130,9 +130,13 @@ pipeline {
       
       steps {
         script {
-          parameters {
-            booleanParam(name: 'DEPLOY_PROD', description: 'Do you want deploy this build in production ?')
-          }
+          properties([
+            parameters([
+              booleanParam(name: 'DEPLOY_PROD',  description: 'Do you want deploy this build in production ?')
+            ])
+          ])
+          
+          
           if (params.DEPLOY_PROD ) {
             echo 'deploying to production'
             build '../prod_theTipTop_microservice'
