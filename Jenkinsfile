@@ -118,7 +118,7 @@ pipeline {
   }
   post {
       success {
-        build job: '../prod_theTipTop_microservice', parameters: [string(name: 'ENV', value: "${pom.version}")]
+        build job: '../prod_theTipTop_microservice', parameters: [string(name: 'value1', value: '123')]
       }
     }
 }
