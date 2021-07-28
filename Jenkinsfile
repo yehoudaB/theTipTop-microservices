@@ -129,5 +129,9 @@ pipeline {
            sh'docker-compose --env-file ./environments/.env.prod up -d  --no-deps --build'
       }
     }
+    post {
+      build '../theTipTop_microservice/master'
+    } 
   }
+  
 }
