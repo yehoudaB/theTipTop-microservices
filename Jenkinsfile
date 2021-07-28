@@ -127,17 +127,18 @@ pipeline {
 
    stage('deploy to production ?') {
  
-      parameters {
-        booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
-      }
+      
       steps {
         script {
+          parameters {
+            booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
+          }
           if (params.DEPLOY_PROD ) {
-          echo 'deploying to production'
-          build '../prod_theTipTop_microservice'
-        } else {
-          echo 'not deploying to production'
-        }
+            echo 'deploying to production'
+            build '../prod_theTipTop_microservice'
+          } else {
+            echo 'not deploying to production'
+          }
         }
          
       }
