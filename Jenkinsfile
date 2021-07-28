@@ -126,12 +126,12 @@ pipeline {
     }
   }
   post {
-          always{
-            predefinedProp(POM_VERSION, "${pom.version}")
-            echo "${pom.version}"
-            build '../prod_theTipTop_microservice'
-            
-          }   
+          def parameters = Jenkins.instance.getAllItems(Job)
+                        .find {job -> job.fullName == jobName }
+                        .getBuildByNumber(buildId.toInteger())
+                        .getAction(hudson.model.ParametersAction)
+
+          println parameters.getParameter('SOME_PARAMETER').value
       }
 
 }
