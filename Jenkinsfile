@@ -8,7 +8,7 @@ pipeline {
       defaultValue: false,
     )
   }
-
+if (!DEPLOY_IN_PROD){
 
   stages {
     stage('checkout') {
@@ -128,6 +128,7 @@ pipeline {
         }
       }
     }
+  }
     stage('deploy in production') {
       steps {
         script{
