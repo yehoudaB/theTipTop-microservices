@@ -116,19 +116,12 @@ pipeline {
       }
     }
 
-    stage('download from nexus') {
-      steps {
-        echo "${pom.groupId}"
-        echo "${pom.version}"
-        sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
-        sh 'ls -a '
-      }
-    }
+    
 
     post {
-      always{
-        build '../prod_theTipTop_microservice'
-      }   
+      success {
+        build job'../prod_theTipTop_microservice', parameters: [string(name: 'ENV', value: "${pom.version}")]
+      }
     }
   }
 }
