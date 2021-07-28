@@ -1,5 +1,15 @@
 pipeline {
   agent any
+
+  parameters {
+    booleanParam(
+      name: 'DEPLOY_IN_PROD',
+      description: 'deploy in production ?',
+      defaultValue: false,
+    )
+  }
+
+
   stages {
     stage('checkout') {
       steps {
@@ -118,5 +128,18 @@ pipeline {
         }
       }
     }
+    stage('deploy in production') {
+      steps {
+        script{
+          if (DEPLOY_IN_PROD){
+             sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
+             sh 'docker-compose --env-file ./environments/.env.prod up -d --no-deps --build '
+          }
+        }
+        
+      }
+
+    }
+
   }
 }
