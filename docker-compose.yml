@@ -117,7 +117,7 @@ services:
       - traefik.enable=true
       - "traefik.http.routers.docker-api.entrypoints=websecure"
       - ${SUB_DOMAIN}
-      - traefik.http.services.docker-api.loadbalancer.server.port=8080
+      - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile
       - traefik.http.routers.docker-api.middlewares=corsheaders
