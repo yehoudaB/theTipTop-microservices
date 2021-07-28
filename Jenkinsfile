@@ -123,12 +123,14 @@ pipeline {
         sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
         sh 'ls -a '
       }
-    }
-  }
-  post {
-    parameters {
+      parameters {
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
       }
+    }
+  }
+  
+  post {
+   
     success {
       
       if (params.DEPLOY_PROD ) {
