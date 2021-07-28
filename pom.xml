@@ -6,9 +6,17 @@
     <repository>
       <id>theTipTop_microservice</id>
       <name>theTipTop microservice</name>
-      <url>https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/</url>
+      <url>https://nexus.dsp4-5archio19-ah-je-gh-yb.fr</url>
     </repository>
+    
   </repositories>
+     <distributionManagement>
+       <repository>
+	      <id>theTipTop_microservice</id>
+	      <name>theTipTop microservice</name>
+	      <url>https://nexus.dsp4-5archio19-ah-je-gh-yb.fr</url>
+    	</repository>
+    </distributionManagement>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
