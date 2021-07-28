@@ -126,10 +126,11 @@ pipeline {
     }
   }
   post {
-    success {
-      parameters {
+    parameters {
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
       }
+    success {
+      
       if (params.DEPLOY_PROD ) {
         echo 'deploying to production'
          build '../prod_theTipTop_microservice'
