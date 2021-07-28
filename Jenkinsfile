@@ -126,10 +126,14 @@ pipeline {
     }
   }
   post {
-          always{
-            build '../prod_theTipTop_microservice'
-            
-          }   
+    success {
+      parameters {
+        booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Do you want deploy this build in production ?')
       }
-
+      if (params.DEPLOY_PROD ) {
+        echo 'deploying to production'
+         build '../prod_theTipTop_microservice'
+      }
+    }
+  }
 }
