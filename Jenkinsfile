@@ -132,7 +132,7 @@ pipeline {
         script {
           properties([
             parameters([
-              booleanParam(name: 'DEPLOY_PROD',  description: 'Do you want deploy this build in production ?')
+              booleanParam(name: 'DEPLOY_PROD', value: 'true'  description: 'Do you want deploy this build in production ?')
             ])
           ])
           
