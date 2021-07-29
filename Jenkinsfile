@@ -81,7 +81,7 @@ pipeline {
 
     stage('Deploy Artifact To Nexus') {
       when {
-        params.DEPLOY_IN_PROD
+        
         expression {!params.DEPLOY_IN_PROD}
       }
       steps {
