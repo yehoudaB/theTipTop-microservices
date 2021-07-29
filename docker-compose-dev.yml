@@ -12,15 +12,14 @@ services:
 #---------------------
 # api
 #---------------------
-  api:
+  dev-api:
     build:
       context: .
       args:
         - PATH_OF_WAR=${PATH_OF_WAR}
     image: ${ENV}-api
     container_name: ${ENV}-api
-    depends_on:
-      - mysql
+
     environment:
       spring.datasource.username: ${MYSQL_USERNAME}
       spring.datasource.password: ${MYSQL_ROOT_PASSWORD}
@@ -30,7 +29,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.routers.docker-api.entrypoints=websecure"
-      - traefik.http.routers.docker-api.rule=Host(`${SUB_DOMAIN}.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - traefik.http.routers.docker-api.rule=Host(`dev-api.dsp4-5archio19-ah-je-gh-yb.fr`)
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile

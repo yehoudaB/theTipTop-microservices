@@ -13,7 +13,7 @@ services:
 #---------------------
 # api
 #---------------------
-  api:
+  prod-api:
     build:
       context: .
       args:
@@ -31,7 +31,7 @@ services:
     labels:
       - traefik.enable=true
       - "traefik.http.routers.docker-api.entrypoints=websecure"
-      - traefik.http.routers.docker-api.rule=Host(`${SUB_DOMAIN}.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - traefik.http.routers.docker-api.rule=Host(`api.dsp4-5archio19-ah-je-gh-yb.fr`)
       - traefik.http.services.docker-api.loadbalancer.server.port=80
       - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile

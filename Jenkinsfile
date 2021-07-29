@@ -47,7 +47,7 @@ pipeline {
                     ls -a
                     '''
                 sh '''
-                      docker-compose -f docker-compose.yml -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build
+                      docker-compose -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build
                       '''
                 } else {
                 sh '''
