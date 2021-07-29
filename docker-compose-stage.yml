@@ -18,8 +18,8 @@ services:
       context: .
       args:
         - PATH_OF_WAR=${PATH_OF_WAR}
-    image: ${ENV}-api
-    container_name: ${ENV}-api
+    image: stage-api
+    container_name: stage-api
     depends_on:
       - mysql
     environment:
@@ -30,12 +30,12 @@ services:
       server.port: 80
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.docker-api.entrypoints=websecure"
-      - traefik.http.routers.docker-api.rule=Host(`stage-api.dsp4-5archio19-ah-je-gh-yb.fr`)
-      - traefik.http.services.docker-api.loadbalancer.server.port=80
-      - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
+      - "traefik.http.routers.stage-api.entrypoints=websecure"
+      - traefik.http.routers.stage-api.rule=Host(`stage-api.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - traefik.http.services.stage-api.loadbalancer.server.port=80
+      - "traefik.http.routers.stage-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile
-      - traefik.http.routers.docker-api.middlewares=corsheaders
+      - traefik.http.routers.stage-api.middlewares=corsheaders
     networks: 
       - private
       - web

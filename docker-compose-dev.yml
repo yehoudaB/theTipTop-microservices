@@ -28,12 +28,12 @@ services:
       server.port: 80
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.docker-api.entrypoints=websecure"
-      - traefik.http.routers.docker-api.rule=Host(`dev-api.dsp4-5archio19-ah-je-gh-yb.fr`)
-      - traefik.http.services.docker-api.loadbalancer.server.port=80
-      - "traefik.http.routers.docker-api.tls.certresolver=lets-encr"
+      - "traefik.http.routers.dev-api.entrypoints=websecure"
+      - traefik.http.routers.dev-api.rule=Host(`dev-api.dsp4-5archio19-ah-je-gh-yb.fr`)
+      - traefik.http.services.dev-api.loadbalancer.server.port=80
+      - "traefik.http.routers.dev-api.tls.certresolver=lets-encr"
       #prochaine ligne est peut etre inutile
-      - traefik.http.routers.docker-api.middlewares=corsheaders
+      - traefik.http.routers.dev-api.middlewares=corsheaders
     networks: 
       - private
       - web
