@@ -98,7 +98,7 @@ services:
 #---------------------
 # api
 #---------------------
-  api:
+  ${ENV}-api:
     build:
       context: .
       args:
