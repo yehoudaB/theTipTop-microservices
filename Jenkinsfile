@@ -8,7 +8,7 @@ pipeline {
       defaultValue: false,
     )
   }
- 
+
   stages {
     stage('checkout') {
       steps {
@@ -32,23 +32,33 @@ pipeline {
     stage('maven install and docker-compose up (deploy into tomcat)') {
       steps {
         withMaven(maven: 'maven3') {
-          script{
-            if (params.DEPLOY_IN_PROD){
+          script {
+            if (params.DEPLOY_IN_PROD) {
               pom = readMavenPom file: 'pom.xml'
               echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
               sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
               sh '/usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build '
             } else {
-               echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
+              echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
+
+              if (env.BRANCH_NAME == 'dev') {
                 sh '''
-                mvn clean  install package   -Dmaven.test.skip=true -Pprod
-                ls -a
-                '''
+                    mvn clean  install package   -Dmaven.test.skip=true -Pdev
+                    ls -a
+                    '''
                 sh '''
-                    /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build 
-                '''
+                      /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build
+                      '''
+                } else {
+                sh '''
+                    mvn clean  install package   -Dmaven.test.skip=true -Pprod
+                    ls -a
+                    '''
+                sh '''
+                    /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build
+                    '''
+              }
             }
-          
           }
         }
       }
@@ -85,13 +95,13 @@ pipeline {
       when {
         allOf {
           branch 'master'
-          expression {!params.DEPLOY_IN_PROD}
+          expression { !params.DEPLOY_IN_PROD }
         }
       }
       steps {
         sh '''cd target/
         ls -a'''
-      
+
         script {
           pom = readMavenPom file: 'pom.xml'
           // Find built artifact under target folder
