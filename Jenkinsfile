@@ -47,7 +47,7 @@ pipeline {
                     ls -a
                     '''
                 sh '''
-                      /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build
+                      docker-compose -f docker-compose.yml -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build
                       '''
                 } else {
                 sh '''
@@ -55,7 +55,7 @@ pipeline {
                     ls -a
                     '''
                 sh '''
-                    /usr/local/bin/docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build
+                    docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build
                     '''
               }
             }

@@ -6,10 +6,6 @@ networks:
   web:
     external: 
       name: web
-volumes:
-  mysql-data:
-  postgres_data:
-    driver: local
  
 services:
       
