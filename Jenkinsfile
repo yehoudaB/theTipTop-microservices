@@ -84,7 +84,7 @@ pipeline {
     stage('Deploy Artifact To Nexus') {
       when {
         allOf {
-          branch master
+          branch 'master'
           expression {!params.DEPLOY_IN_PROD}
         }
       }
