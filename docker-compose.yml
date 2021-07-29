@@ -16,7 +16,7 @@ services:
 #---------------------
 # api
 #---------------------
-  api:
+  api-prod:
     build:
       context: .
       args:
