@@ -83,8 +83,10 @@ pipeline {
 
     stage('Deploy Artifact To Nexus') {
       when {
-        
-        expression {!params.DEPLOY_IN_PROD}
+        allOf {
+          branch master
+          expression {!params.DEPLOY_IN_PROD}
+        }
       }
       steps {
         sh '''cd target/
