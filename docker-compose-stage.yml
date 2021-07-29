@@ -98,7 +98,7 @@ services:
 #---------------------
 # api
 #---------------------
-  api-stage:
+  api:
     build:
       context: .
       args:
