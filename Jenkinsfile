@@ -18,17 +18,6 @@ pipeline {
       }
     }
 
-    stage('install compose') {
-      steps {
-        sh '''
-            #les 3 prochaine lignes doivent etre conditionnel ou alors les faire lors de la constrution de l\'image jenkins
-            apt-get install sudo -y
-            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-            docker-compose --version'''
-      }
-    }
-
     stage('maven install and docker-compose up (deploy into tomcat)') {
       steps {
         withMaven(maven: 'maven3') {
@@ -37,7 +26,7 @@ pipeline {
               pom = readMavenPom file: 'pom.xml'
               echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
               sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
-              sh 'docker-compose -f docker-compose.yml --env-file ./environments/.env.prod up -d --no-deps --build '
+              sh 'docker-compose -f docker-compose.yml -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build '
             } else {
                echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
                 sh '''
@@ -45,7 +34,7 @@ pipeline {
                 ls -a
                 '''
                 sh '''
-                    docker-compose -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build 
+                    docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build 
                 '''
             }
           
