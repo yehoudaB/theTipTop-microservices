@@ -32,13 +32,22 @@ pipeline {
     stage('maven install and docker-compose up (deploy into tomcat)') {
       steps {
         withMaven(maven: 'maven3') {
-          sh '''
+          script{
+            if (params.DEPLOY_IN_PROD){
+              echo "value ${params.DEPLOY_IN_PROD}"
+              sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
+              sh 'docker-compose -f docker-compose.yml --env-file ./environments/.env.prod up -d --no-deps --build '
+            } else {
+                sh '''
                 mvn clean  install package   -Dmaven.test.skip=true -Pprod
                 ls -a
-            '''
-          sh '''
-              docker-compose --env-file ./environments/.env.stage up -d --no-deps --build 
-          '''
+                '''
+                sh '''
+                    docker-compose -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build 
+                '''
+            }
+          
+          }
         }
       }
     }
@@ -72,7 +81,8 @@ pipeline {
 
     stage('Deploy Artifact To Nexus') {
       when {
-        branch 'master'
+        params.DEPLOY_IN_PROD
+        expression {!params.DEPLOY_IN_PROD}
       }
       steps {
         sh '''cd target/
@@ -127,20 +137,5 @@ pipeline {
         }
       }
     }
-  
-    stage('deploy in production') {
-      steps {
-        script{
-          if (params.DEPLOY_IN_PROD){
-             echo "value ${params.DEPLOY_IN_PROD}"
-             sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
-             sh 'docker-compose --env-file ./environments/.env.prod up -d --no-deps --build '
-          }
-        }
-        
-      }
-
-    }
-
   }
 }
