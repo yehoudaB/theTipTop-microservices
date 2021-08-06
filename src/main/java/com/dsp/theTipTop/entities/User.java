@@ -27,9 +27,6 @@ public class User {
 	@NotNull
 	private String email;
 	
-	private String facebookId;
-	
-	private String password;
 	
 	@NotNull @Temporal(TemporalType.TIMESTAMP)
 	private Date birthDate;
@@ -45,17 +42,17 @@ public class User {
 	private boolean isHadHisGift;
 
 
-	public User(@NotNull String email, String facebookId, String password, @NotNull Date birthDate,
-			@NotNull boolean canEmailMe, Lot wonTheBigPrize, boolean isHadHisGift) {
+	public User(@NotNull String email, @NotNull Date birthDate, @NotNull boolean canEmailMe, Lot wonTheBigPrize,
+			boolean isHadHisGift) {
 		super();
 		this.email = email;
-		this.facebookId = facebookId;
-		this.password = password;
 		this.birthDate = birthDate;
 		this.canEmailMe = canEmailMe;
 		this.wonTheBigPrize = wonTheBigPrize;
 		this.isHadHisGift = isHadHisGift;
 	}
+
+
 
 
 	

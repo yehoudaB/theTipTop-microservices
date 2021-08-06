@@ -28,6 +28,10 @@ public class UserService {
 		return userRepository.findById(id);
 	}
 
+	public Optional<User> findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
 	@Transactional
 	public ResponseEntity<String> save(@Valid User pUser) {
 		User user = userRepository.save(pUser);

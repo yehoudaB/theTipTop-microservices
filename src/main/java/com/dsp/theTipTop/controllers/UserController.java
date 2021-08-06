@@ -43,6 +43,11 @@ public class UserController {
 		return userService.findById(id);	
 	}
 	
+	@GetMapping(value = "/{email}")
+	public Optional<User> findByEmail(@PathVariable String email) {
+		return userService.findByEmail(email);	
+	}
+	
 	
 	@PostMapping
 	public ResponseEntity<String> save(@Valid @RequestBody User user){
@@ -55,19 +60,4 @@ public class UserController {
 		return userService.delete(id);
 	}
 	
-   @GetMapping("/me")
-    public Map<String, Object> userInfos(@AuthenticationPrincipal OAuth2User principal ) {
-        //return Collections.singletonMap("name", principal.getAttribute("name") );
-	   
-        return principal.getAttributes();
-        
-    }
-   
-   
-     @RequestMapping("/oauth2LoginSuccess")
-     public Map<String, Object> saveUserData(@AuthenticationPrincipal OAuth2User principal) {
-         //return Collections.singletonMap("name", principal.getAttribute("name") );
-         return principal.getAttributes();
-         
-     }
 }
