@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Lot {
 
 	@Id
-	private Long lotId;
+	private Long id;
 	
 	@NotNull
 	private String name;

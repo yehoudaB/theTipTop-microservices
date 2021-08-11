@@ -34,7 +34,7 @@ public class LotService {
 		if(lot == null) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error when saving the lot");
 		}
-		return ResponseEntity.ok().body(lot.getLotId().toString());
+		return ResponseEntity.ok().body(lot.getId().toString());
 	}
 
 	@Transactional
