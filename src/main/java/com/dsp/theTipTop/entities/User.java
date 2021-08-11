@@ -36,8 +36,8 @@ public class User {
 	private boolean canEmailMe;
 	
 	
-	@OneToOne @JoinColumn(name = "lot_id")
-	private Lot wonTheBigPrize;
+	@OneToOne @JoinColumn(name = "big_lot_id")
+	private Lot wonTheBigLot;
 	
 	
 	private boolean isHadHisGift;
