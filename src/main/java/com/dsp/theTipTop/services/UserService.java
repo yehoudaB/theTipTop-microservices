@@ -38,7 +38,7 @@ public class UserService {
 		if(user == null) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error when saving the user");
 		}
-		return ResponseEntity.ok().body(user.getUserId().toString());
+		return ResponseEntity.ok().body(user.getId().toString());
 	}
 
 	@Transactional
