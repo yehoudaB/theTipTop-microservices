@@ -25,7 +25,7 @@
 	</parent>
 	<groupId>com.dsp</groupId>
 	<artifactId>theTipTop</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>theTipTop</name>
 	<description>microservice for theTipTop</description>
 	<packaging>war</packaging>
