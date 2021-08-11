@@ -33,15 +33,10 @@ pipeline {
       steps {
         withMaven(maven: 'maven3') {
           script {
-            if (params.DEPLOY_IN_PROD) {
-              pom = readMavenPom file: 'pom.xml'
-              echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
-              sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
-              sh 'docker-compose -f docker-compose.yml -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build  --force-recreate prod-api'
-            } else {
-              echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
+            
+            echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
 
-              if (env.BRANCH_NAME == 'dev') {
+            if (env.BRANCH_NAME == 'dev') {
                 sh '''
                     mvn clean  install package   -Dmaven.test.skip=true -Pdev
                     ls -a
@@ -49,14 +44,20 @@ pipeline {
                 sh '''
                       docker-compose -f docker-compose-dev.yml --env-file ./environments/.env.dev up -d --no-deps --build  --force-recreate dev-api
                       '''
-                } else {
-                sh '''
-                    mvn clean  install package   -Dmaven.test.skip=true -Pprod
-                    ls -a
-                    '''
-                sh '''
-                    docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build --force-recreate stage-api
-                    '''
+            } else if(env.BRANCH_NAME == 'master'){
+                if (params.DEPLOY_IN_PROD) {
+                  pom = readMavenPom file: 'pom.xml'
+                  echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
+                  sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
+                  sh 'docker-compose -f docker-compose.yml -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build  --force-recreate prod-api'
+              } else {
+                  sh '''
+                  mvn clean  install package   -Dmaven.test.skip=true -Pprod
+                  ls -a
+                  '''
+                  sh '''
+                  docker-compose -f docker-compose.yml -f docker-compose-stage.yml --env-file ./environments/.env.stage up -d --no-deps --build --force-recreate stage-api
+                  '''
               }
             }
           }
