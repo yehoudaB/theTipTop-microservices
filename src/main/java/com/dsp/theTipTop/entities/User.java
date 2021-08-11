@@ -2,7 +2,6 @@ package com.dsp.theTipTop.entities;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,16 +12,18 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userId;
+	private Long id;
 	
 	@NotNull
 	private String email;
@@ -42,20 +43,7 @@ public class User {
 	private boolean isHadHisGift;
 
 
-	public User(@NotNull String email, @NotNull Date birthDate, @NotNull boolean canEmailMe, Lot wonTheBigPrize,
-			boolean isHadHisGift) {
-		super();
-		this.email = email;
-		this.birthDate = birthDate;
-		this.canEmailMe = canEmailMe;
-		this.wonTheBigPrize = wonTheBigPrize;
-		this.isHadHisGift = isHadHisGift;
-	}
 
-
-
-
-	
 	
 	
 	
