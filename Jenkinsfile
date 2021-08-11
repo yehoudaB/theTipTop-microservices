@@ -37,8 +37,8 @@ pipeline {
               pom = readMavenPom file: 'pom.xml'
               echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
               sh "curl -H 'Accept: application/zip'  --user admin:cYs3kfqCN25Xdu https://nexus.dsp4-5archio19-ah-je-gh-yb.fr/repository/theTipTop_microservice/com/dsp/theTipTop/${pom.version}/theTipTop-${pom.version}.war -o theTipTop.war"
-              sh 'docker-compose -f docker-compose.yml up -d --no-deps --build'
-              sh 'docker-compose -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build --rm '
+              sh 'docker-compose up -d --no-deps --build'
+              sh 'docker-compose -f docker-compose-prod.yml --env-file ./environments/.env.prod up -d --no-deps --build --force-recreate '
             } else {
               echo "deploying in prod : ${params.DEPLOY_IN_PROD}"
 
