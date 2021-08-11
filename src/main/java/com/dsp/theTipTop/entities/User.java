@@ -28,11 +28,13 @@ public class User {
 	@NotNull
 	private String email;
 	
+	private String firstName;
+
+	private String lastName;
 	
-	@NotNull @Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date birthDate;
 	
-	@NotNull
 	private boolean canEmailMe;
 	
 	
@@ -41,10 +43,5 @@ public class User {
 	
 	
 	private boolean isHadHisGift;
-
-
-
-	
-	
 	
 }
