@@ -23,7 +23,7 @@ services:
       - 3306:3306 #VM:Containter
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      #MYSQL_DATABASE: ${MYSQL_DATABASE}
     networks: 
       - private
     volumes:
