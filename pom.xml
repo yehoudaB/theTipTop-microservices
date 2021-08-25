@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>5.0.0</modelVersion>
+	<modelVersion>5.0.0</modelVersion> 
 	<repositories>
     <repository>
-      <id>theTipTop_microservice</id>
+      <id>theTipTop_microservice</id> 
       <name>theTipTop microservice</name>
       <url>https://nexus.dsp4-5archio19-ah-je-gh-yb.fr</url>
     </repository>
