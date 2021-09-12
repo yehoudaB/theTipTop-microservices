@@ -1,5 +1,8 @@
 package com.example.theTipTop;
 
+import javax.validation.constraints.AssertFalse;
+
+import org.apache.catalina.startup.FailedContext;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,11 +15,12 @@ import com.dsp.theTipTop.TheTipTopApplication;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TheTipTopApplication.class)
 
-//@TestPropertySource(locations = "/application-local.properties")
+@TestPropertySource(locations = "/application-local.properties")
 class TheTipTopApplicationTests {
 
 	@Test
 	void contextLoads() {
+		AssertFalse(true);
 	}
 	
 	
