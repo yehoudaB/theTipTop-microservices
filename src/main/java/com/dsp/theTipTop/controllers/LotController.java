@@ -50,4 +50,4 @@ public class LotController {
 	public ResponseEntity<String> delete(@PathVariable Long id){
 		return lotService.delete(id);
 	}
-}
+} 
