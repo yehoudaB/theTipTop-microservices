@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.dsp.theTipTop.entities.Lot;
 import com.dsp.theTipTop.entities.Ticket;
 import com.dsp.theTipTop.repositories.TicketRepository;
 
@@ -68,7 +70,10 @@ public class TicketService {
 		String dateInNumber = month + day + hour + minute +second + millisecond;
 	    String ticketNumber = dateInNumber + Math.round(price);
 	    
-	    Ticket ticket = new Ticket(ticketNumber, null, null, false);
+	    int randomNum = ThreadLocalRandom.current().nextInt(1, 99999 + 1);
+	    Lot l1 = new Lot(Long.valueOf(randomNum),"boite de thé", "boite de thé vert à la menthe", 19.99); 
+	    Ticket ticket = new Ticket(ticketNumber,l1, null, false);
+	    
 	    this.save(ticket);
 	   
 	    return ticketNumber;
