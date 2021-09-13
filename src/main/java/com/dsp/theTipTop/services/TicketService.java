@@ -25,6 +25,9 @@ public class TicketService {
 	
 	@Autowired
 	TicketRepository ticketRepository;
+	
+	@Autowired
+	LotService lotService;
 
 	public List<Ticket> findAll() {
 		return ticketRepository.findAll();
@@ -71,7 +74,10 @@ public class TicketService {
 	    String ticketNumber = dateInNumber + Math.round(price);
 	    
 	    int randomNum = ThreadLocalRandom.current().nextInt(1, 99999 + 1);
-	    Lot l1 = new Lot(Long.valueOf(randomNum),"boite de thé", "boite de thé vert à la menthe", 19.99); 
+	    Long idForLot = Long.valueOf(randomNum);
+	    Lot l1 = new Lot(idForLot,"boite de thé", "boite de thé vert à la menthe", 19.99); 
+	    lotService.save(l1);
+	    lotService.findById(idForLot);
 	    Ticket ticket = new Ticket(ticketNumber,l1, null, false);
 	    
 	    this.save(ticket);
