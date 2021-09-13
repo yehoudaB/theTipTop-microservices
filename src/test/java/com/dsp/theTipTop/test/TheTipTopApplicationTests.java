@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.dsp.theTipTop.TheTipTopApplication;
 
 
-//@TestPropertySource(locations = "/application-local.properties") for local test
+//@TestPropertySource(locations = "/application-local.properties") //for local test
 @SpringBootTest(classes = TheTipTopApplication.class)
 @RunWith(SpringRunner.class)
 class TheTipTopApplicationTests {
