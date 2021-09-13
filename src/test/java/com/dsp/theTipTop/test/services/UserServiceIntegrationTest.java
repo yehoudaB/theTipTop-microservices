@@ -20,7 +20,7 @@ import com.dsp.theTipTop.services.UserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.NONE) 
-@TestPropertySource(locations = "/application-local.properties") //for local test
+//@TestPropertySource(locations = "/application-local.properties") //for local test
 class UserServiceIntegrationTest {
 
 	@Autowired
