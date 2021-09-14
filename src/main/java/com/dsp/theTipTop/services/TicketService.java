@@ -76,8 +76,8 @@ public class TicketService {
 	    int randomNum = ThreadLocalRandom.current().nextInt(1, 99999 + 1);
 	    Long idForLot = Long.valueOf(randomNum);
 	    Lot l1 = new Lot(idForLot,"boite de thé", "boite de thé vert à la menthe", 19.99); 
-	    lotService.save(l1);
-	    lotService.findById(idForLot);
+	    Long lotId = Long.valueOf(lotService.save(l1).getBody()).longValue();
+	    lotService.findById(lotId);
 	    Ticket ticket = new Ticket(ticketNumber,l1, null, false);
 	    
 	    this.save(ticket);
