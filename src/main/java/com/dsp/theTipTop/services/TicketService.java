@@ -59,6 +59,7 @@ public class TicketService {
 
 
 	public String generateTicket(double price) {
+	
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 	       
 		Date now = new Date();
@@ -74,11 +75,12 @@ public class TicketService {
 	    String ticketNumber = dateInNumber + Math.round(price);
 	    
 	    int randomNum = ThreadLocalRandom.current().nextInt(1, 99999 + 1);
-	    Long idForLot = Long.valueOf(randomNum);
-	    Lot l1 = new Lot(idForLot,"boite de thé", "boite de thé vert à la menthe", 19.99); 
-	    Long lotId = Long.valueOf(lotService.save(l1).getBody()).longValue();
-	    lotService.findById(lotId);
-	    Ticket ticket = new Ticket(ticketNumber,l1, null, false);
+	   
+	    Lot lot = new  Lot();
+	    lot = lotService.findById((long) 1).get();
+	    
+	
+	    Ticket ticket = new Ticket(ticketNumber,lot, null, false);
 	    
 	    this.save(ticket);
 	   
