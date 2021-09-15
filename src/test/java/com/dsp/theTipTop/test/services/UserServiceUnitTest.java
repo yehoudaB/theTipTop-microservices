@@ -14,14 +14,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.dsp.theTipTop.entities.User;
 import com.dsp.theTipTop.repositories.UserRepository;
 import com.dsp.theTipTop.services.UserService;
 
-
-//@TestPropertySource(locations = "/application-local.properties") //for local test
+// DEMARRER WAMP EN LOCAL
+@TestPropertySource(locations = "/application-local.properties") //for local test
 @SpringBootTest(webEnvironment = WebEnvironment.NONE) 
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
