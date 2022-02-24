@@ -43,11 +43,13 @@ public class UserService {
 
 	@Transactional
 	public ResponseEntity<String> delete(Long id) {
-		Optional<User> user = userRepository.findById(id);
-		if(user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent user with id : "+ id );
-		} 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		try {
+			userRepository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent user with id : "+ id );
 	}
 
 }

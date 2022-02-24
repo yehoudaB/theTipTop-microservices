@@ -39,11 +39,13 @@ public class LotService {
 
 	@Transactional
 	public ResponseEntity<String> delete(Long id) {
-		Optional<Lot> lot = lotRepository.findById(id);
-		if(lot == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent lot with id : "+ id );
-		} 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		try {
+			lotRepository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent user with id : "+ id );
 	}
 
 }
