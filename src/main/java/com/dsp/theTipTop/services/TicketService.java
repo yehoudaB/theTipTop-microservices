@@ -45,11 +45,13 @@ public class TicketService {
 
 	@Transactional
 	public ResponseEntity<String> delete(Long id) {
-		Optional<Ticket> ticket = ticketRepository.findById(id);
-		if(ticket == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent ticket with id : "+ id );
-		} 
-		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		try {
+			ticketRepository.deleteById(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("non-existent user with id : "+ id );
 	}
 
 	
@@ -78,5 +80,6 @@ public class TicketService {
 	   
 	    return ticketNumber;
 	}
+	
 
 }
