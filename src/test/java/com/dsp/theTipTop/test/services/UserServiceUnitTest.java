@@ -22,7 +22,7 @@ import com.dsp.theTipTop.repositories.UserRepository;
 import com.dsp.theTipTop.services.UserService;
 
 // DEMARRER WAMP EN LOCAL
-@TestPropertySource(locations = "/application-local.properties") //for local test
+//@TestPropertySource(locations = "/application-local.properties") //for local test
 @SpringBootTest(webEnvironment = WebEnvironment.NONE) 
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
