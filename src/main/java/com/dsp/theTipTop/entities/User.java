@@ -2,6 +2,7 @@ package com.dsp.theTipTop.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class User {
 	private boolean canEmailMe;
 	
 	
-	@OneToOne @JoinColumn(name = "big_lot_id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true) @JoinColumn(name = "big_lot_id")
 	private Lot wonTheBigLot;
 	
 	
