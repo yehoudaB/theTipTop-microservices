@@ -42,7 +42,7 @@ public class User {
 	private boolean canEmailMe;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true) @JoinColumn(name = "big_lot_id")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)@JoinColumn(name = "big_lot_id")
 	private Lot wonTheBigLot;
 	
 	
