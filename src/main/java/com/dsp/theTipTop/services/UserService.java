@@ -51,7 +51,7 @@ public class UserService {
     	
       
     	 try{
-			 userRepository.deleteById1(id);
+			 userRepository.deleteById(id);
 		 } catch(Exception e){
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
        	 
