@@ -52,7 +52,7 @@ public class UserService {
       
     	 try{
 			 userRepository.deleteById1(id);
-		 } catch{
+		 } catch(Exception e){
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
        	 
 		 }
