@@ -56,7 +56,7 @@ public class UserController {
 	
 	
 
-	public ResponseEntity<String> delete(@PathVariable long id) throws Exception {
+	public ResponseEntity<String> delete(@PathVariable Long id) throws Exception {
        return userService.delete(id);
 	}
 	

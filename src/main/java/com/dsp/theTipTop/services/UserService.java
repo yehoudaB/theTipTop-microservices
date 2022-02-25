@@ -42,18 +42,18 @@ public class UserService {
 	}
 
 	@Transactional
-	public ResponseEntity<String> delete(String id) throws Exception  {
-      Long idLong = Long.parseLong(id);
-       Optional<User> user1 =  userRepository.findById(idLong);
+	public ResponseEntity<String> delete( Long id) throws Exception  {
+      
+       Optional<User> user1 =  userRepository.findById(id);
        
        if(!user1.isPresent()) throw new Exception("No User found with Id : "+id);
 
     	
       
     	  
-    	userRepository.deleteById(idLong);
+    	userRepository.deleteById(id);
     	
-    	if(userRepository.findById(idLong).isPresent()) {
+    	if(userRepository.findById(id).isPresent()) {
     		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting the Environment with Id "+ id);
        	}
     	
