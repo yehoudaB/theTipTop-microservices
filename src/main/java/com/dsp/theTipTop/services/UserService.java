@@ -50,14 +50,20 @@ public class UserService {
 
     	
       
-    	  
-    	userRepository.deleteById(id);
+    	 try{
+			 userRepository.deleteById1(id);
+		 } catch{
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+       	 
+		 }
     	
-    	if(userRepository.findById(id).isPresent()) {
-    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting the Environment with Id "+ id);
-       	}
     	
-    	return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    	if(!userRepository.findById(id).isPresent()) {
+			
+    		return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    	}
+    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting the Environment with Id "+ id);
+       	
     	   
 	}
 
